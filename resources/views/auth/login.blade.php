@@ -1,73 +1,98 @@
-@extends('layouts.app')
+@extends('layouts.auth')
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+@section('main-content')
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-10 col-lg-12 col-md-9">
+                <div class="card o-hidden border-0  my-5"
+                    style="border-radius: 20px; box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;">
+                    <div class="card-body p-0">
+                        <div class="row">
+                            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                            <div class="col-lg-6">
+                                <div class="p-5">
+                                    <div class="text-center mb-2">
+                                        <div class=" mb-4 d-lg-none form-inline justify-content-center">
+                                            {{-- <img src="{{ asset('img/favicon.png') }}" class="img-fluid pr-2 border-right"
+                                                style="height:40px;"> --}}
+                                            <img src="{{ asset('img/favicon.png') }}" class="img-fluid"
+                                                style="height:80px;">
+                                        </div>
+                                        <h1 class="text-primary mb-0"><b>{{ __('SIPETA') }}</b></h1>
+                                        <small class="text-muted"><em>Sistem Informasi Kepegawaian Terpadu Berbasis
+                                                Aplikasi</em></small><br>
+                                        <small><b class="text-primary">Dinas Tanaman Pangan, Hortikultura dan Perkebunan
+                                            </b><br>Kabupaten
+                                            Merauke
+                                        </small>
+                                        <hr>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
+                                        {{-- <P class="text-muted mb-3">Login untuk dapat mengakses berkas..</P> --}}
+                                    </div>
 
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger border-left-danger" role="alert">
+                                            <ul class="pl-4 my-2">
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
+                                    @if (session('danger'))
+                                        <div class="alert alert-danger" role="alert">
+                                            <h5>Gagal</h5>
+                                            {{ session('danger') }}
+                                        </div>
+                                    @endif
+                                    <form method="POST" action="{{ route('login') }}" class="user">
+                                        {{-- <input type="hidden" name="_token" value="{{ csrf_token() }}"> --}}
+                                        @csrf
+                                        <div class="form-group">
+                                            <input type="text" class="form-control form-control-user" name="nip"
+                                                placeholder="{{ __('NIP / Email') }}" value="{{ old('nip') }}" required
+                                                autofocus>
+                                        </div>
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                        <div class="form-group">
+                                            <input type="password" class="form-control form-control-user" name="password"
+                                                placeholder="{{ __('Password') }}" required>
+                                        </div>
 
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+                                        <div class="form-group">
+                                            <div class="custom-control custom-checkbox small">
+                                                <input type="checkbox" class="custom-control-input" name="remember"
+                                                    id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                                <label class="custom-control-label"
+                                                    for="remember">{{ __('Remember Me') }}</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary btn-user btn-block">
+                                                {{ __('Login') }}
+                                            </button>
+                                        </div>
+                                    </form>
+                                    {{-- @if (Route::has('password.request'))
+                                        <div class="text-center">
+                                            <a class="small" href="{{ route('password.request') }}">
+                                                {{ __('Forgot Password?') }}
+                                            </a>
+                                        </div>
+                                    @endif --}}
 
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
+                                    {{-- @if (Route::has('register'))
+                                        <div class="text-center">
+                                            <a class="small"
+                                                href="{{ route('register') }}">{{ __('Create an Account!') }}</a>
+                                        </div>
+                                    @endif --}}
                                 </div>
                             </div>
                         </div>
-
-                        <div class="row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
-                            </div>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 @endsection

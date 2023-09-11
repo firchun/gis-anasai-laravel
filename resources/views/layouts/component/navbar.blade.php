@@ -47,7 +47,7 @@
              </div>
          </li>
          {{-- {{dd(count(auth()->guard('pegawai')->user()->unreadNotifications))}} --}}
-         @if (Auth::guard('pegawai')->user())
+         {{-- @if (Auth::guard('pegawai')->user())
              <li class="nav-item dropdown no-arrow mx-1">
                  <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -84,7 +84,7 @@
                          notifikasi</a>
                  </div>
              </li>
-         @endif
+         @endif --}}
 
 
          <div class="topbar-divider d-none d-sm-block"></div>
@@ -95,24 +95,14 @@
                  aria-haspopup="true" aria-expanded="false">
                  <span
                      class="mr-2 d-none d-lg-inline text-gray-600 small">{{ isset(Auth::user()->name) ? Auth::user()->name . ' ' . Auth::user()->last_name : \Auth::guard('pegawai')->user()->nama }}</span>
-                 @if (Auth::guard('pegawai')->user())
-                     @if (Auth::guard('pegawai')->user()->pas_foto == '-')
-                         <figure class="img-profile rounded-circle avatar avatar font-weight-bold" {{-- data-initial="{{ isset(Auth::user()->name[0]) ? Auth::user()->name[0] : Auth::guard('pegawai')->user()->nama[0] }}"> --}}
-                             data-initial="{{ Auth::guard('pegawai')->user()->nama[0] }}">
-                         </figure>
-                     @else
-                         <img src="{{ isset(Auth::guard('pegawai')->user()->pas_foto) ? url(Storage::url(Auth::guard('pegawai')->user()->pas_foto)) : asset('../assets/images/user/user-sm-02.jpg') }}"
-                             class="img-profile user-image rounded-circle" alt="User Image" style="object-fit: cover;">
-                     @endif
-                 @else
-                     <figure class="img-profile rounded-circle avatar avatar font-weight-bold" {{-- data-initial="{{ isset(Auth::user()->name[0]) ? Auth::user()->name[0] : Auth::guard('pegawai')->user()->nama[0] }}"> --}}
-                         data-initial="{{ Auth::user()->name[0] }}">
-                     </figure>
-                 @endif
+
+                 <figure class="img-profile rounded-circle avatar avatar font-weight-bold" {{-- data-initial="{{ isset(Auth::user()->name[0]) ? Auth::user()->name[0] : Auth::guard('pegawai')->user()->nama[0] }}"> --}}
+                     data-initial="{{ Auth::user()->name[0] }}">
+                 </figure>
              </a>
              <!-- Dropdown - User Information -->
              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                 <a class="dropdown-item" href="{{ route('profile') }}">
+                 <a class="dropdown-item" href="{{ url('profile') }}">
                      <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                      {{ __('Profile') }}
                  </a>

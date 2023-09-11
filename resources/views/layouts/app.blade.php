@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Bavel - Bali Travel Time</title>
+    <title>{{ env('APP_NAME' ?? 'Anasai') }} {{ $title ?? '' }}</title>
     <link rel="icon" type="image/png" href="{{ asset('frontend') }}/img/icon/bavel.png">
 
     <!-- Meta Description -->
@@ -20,6 +20,9 @@
 
     <!-- Import Style -->
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/css/main.css">
+
+    {{-- add css  --}}
+    @stack('style')
 
 </head>
 
@@ -41,6 +44,9 @@
     <script type="text/javascript" src="{{ asset('frontend') }}/js/jquery.js"></script>
     <script type="text/javascript" src="{{ asset('frontend') }}/js/main.js"></script>
     <script type="text/javascript" src="{{ asset('frontend') }}/js/swipe.js"></script>
+
+    {{-- add script --}}
+    @stack('script')
 </body>
 
 </html>

@@ -9,11 +9,12 @@
           <div class="navbar-item">
               <a href="{{ url('/') }}" class="navbar-title">Anasai</a>
               <ul>
-                  <li><a href="destination.html">Destination</a></li>
-                  <li><a href="gallery.html">Gallery</a></li>
-                  <li><a data-slide="slides" data-slide-target="#discover">Discover</a></li>
-                  <li><a href="news.html"> News</a></li>
-                  <li><button class="btn-login" id="openLogin">LOGIN</button></li>
+                  <li><a href="{{ url('/') }}">Lapak</a></li>
+                  @guest
+                      <li><button class="btn-login" id="openLogin">LOGIN</button></li>
+                  @else
+                      <li><a href="{{ route('home') }}" class="text-danger">Dashboard</a></li>
+                  @endguest
               </ul>
           </div>
       </div>

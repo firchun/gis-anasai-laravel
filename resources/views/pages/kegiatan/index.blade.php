@@ -2,7 +2,7 @@
 
 @section('main-content')
     <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800">{{ __('Profile') }}</h1>
+    <h1 class="h3 mb-4 text-gray-800">{{ __($title) }}</h1>
 
     @if (session('success'))
         <div class="alert alert-success border-left-success alert-dismissible fade show" role="alert">
@@ -47,6 +47,7 @@
                                 <th>Foto</th>
                                 <th>Nama Event</th>
                                 <th>keterangan Event</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>

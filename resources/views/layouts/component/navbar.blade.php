@@ -93,8 +93,7 @@
          <li class="nav-item dropdown no-arrow">
              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
                  aria-haspopup="true" aria-expanded="false">
-                 <span
-                     class="mr-2 d-none d-lg-inline text-gray-600 small">{{ isset(Auth::user()->name) ? Auth::user()->name . ' ' . Auth::user()->last_name : \Auth::guard('pegawai')->user()->nama }}</span>
+                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>
 
                  <figure class="img-profile rounded-circle avatar avatar font-weight-bold" {{-- data-initial="{{ isset(Auth::user()->name[0]) ? Auth::user()->name[0] : Auth::guard('pegawai')->user()->nama[0] }}"> --}}
                      data-initial="{{ Auth::user()->name[0] }}">

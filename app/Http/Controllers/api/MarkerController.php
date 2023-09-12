@@ -5,6 +5,8 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use App\Models\Desa;
 use App\Models\Kegiatan;
+use App\Models\Lapak;
+use App\Models\Wisata;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -15,7 +17,7 @@ class MarkerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function get_all_desa(Request $request)
+    public function get_all_desa()
     {
         $desa = Desa::query();
         $desa = $desa->where('latitude', '!=', NULL)
@@ -30,7 +32,7 @@ class MarkerController extends Controller
         });
         return response()->json($desa);
     }
-    public function get_all_kegiatan(Request $request)
+    public function get_all_kegiatan()
     {
         $kegiatan = Kegiatan::query();
         $kegiatan = $kegiatan->where('latitude', '!=', NULL)
@@ -42,6 +44,46 @@ class MarkerController extends Controller
             $kegiatan->foto_url = $kegiatan->foto !== null ?  url(Storage::url($kegiatan->foto)) : asset('img/no-image.png');
         });
         return response()->json($kegiatan);
+    }
+    public function get_all_lapak()
+    {
+        $lapak = Lapak::whereNotNull('latitude')
+            ->whereNotNull('longitude')
+            ->where('latitude', '<>', '')
+            ->where('longitude', '<>', '')
+            ->with('produk')
+            ->get();
+
+        $lapak->each(function ($lapak) {
+            $lapak->foto_url = $lapak->foto !== null ?  url(Storage::url($lapak->foto)) : asset('img/no-image.png');
+        });
+
+        $produkList = [];
+
+        foreach ($lapak as $item) {
+            foreach ($item->produk as $produk) {
+                $produkList[] = $produk->nama_produk;
+            }
+        }
+
+        return response()->json([
+            'lapak' => $lapak
+        ]);
+    }
+
+    public function get_all_wisata()
+    {
+        $Wisata = Wisata::query();
+        $Wisata = $Wisata->where('latitude', '!=', NULL)
+            ->where('latitude', '!=', '')
+            ->where('longitude', '!=', NULL)
+            ->where('longitude', '!=', '')
+            ->get();
+        $Wisata->each(function ($Wisata) {
+            $Wisata->foto_url = $Wisata->foto !== null ?  url(Storage::url($Wisata->foto)) : asset('img/no-image.png');
+            $Wisata->harga = 'Rp ' . number_format($Wisata->harga);
+        });
+        return response()->json($Wisata);
     }
     /**
      * Store a newly created resource in storage.

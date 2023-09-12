@@ -27,23 +27,42 @@
 
     <!-- Section Explore -->
 
-    <section class="section-explore">
+    <section class="section-explore" style="height: 300px;">
         <div class="texture-handler-top"></div>
         <div class="overlay">
             <div class="caption">
-                <h2>ENJOY BEUTY & friendliness OF</h2> <br>
-                <img src="{{ asset('frontend') }}/img/bali-island.png" alt="Bali Island">
+                <h1 style="font-size: 48px;  font-family:'Lobster';">Infromation of Anasai</h1>
             </div>
         </div>
         <div class="texture-handler-bottom"></div>
     </section>
 
+    @include('pages.landing_page.component.desa')
+    <section class="section-explore" style="height: 300px;">
+        <div class="texture-handler-top"></div>
+        <div class="overlay">
+            <div class="caption">
+                <h1 style="font-size: 48px;  font-family:'Lobster';">Destination of Anasai</h1>
+            </div>
+        </div>
+        <div class="texture-handler-bottom"></div>
+    </section>
+    @include('pages.landing_page.component.wisata')
     @include('pages.landing_page.component.kegiatan')
+    <section class="section-explore" style="height: 300px;">
+        <div class="texture-handler-top"></div>
+        <div class="overlay">
+            <div class="caption">
+                <h1 style="font-size: 48px; font-family:'Lobster';">Merchandise of Anasai</h1>
+            </div>
+        </div>
+        <div class="texture-handler-bottom"></div>
+    </section>
 
     @include('pages.landing_page.component.lapak')
 
 
-    <!-- Section Newsletter -->
+    {{-- <!-- Section Newsletter -->
 
     <section class="section-testi">
         <div class="overlay">
@@ -97,5 +116,5 @@
                         class="ion-arrow-right-c"></span></button>
             </div>
         </div>
-    </section>
+    </section> --}}
 @endsection

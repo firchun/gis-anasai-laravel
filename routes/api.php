@@ -20,3 +20,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::get('/get_all_desa', [MarkerController::class, 'get_all_desa'])->name('get_all_desa');
 Route::get('/get_all_kegiatan', [MarkerController::class, 'get_all_kegiatan'])->name('get_all_kegiatan');
+Route::get('/get_all_lapak', [MarkerController::class, 'get_all_lapak'])->name('get_all_lapak');
+Route::get('/get_all_wisata', [MarkerController::class, 'get_all_wisata'])->name('get_all_wisata');

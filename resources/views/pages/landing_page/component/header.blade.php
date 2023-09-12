@@ -1,5 +1,4 @@
 <!-- Section Header -->
-
 <section class="section-header">
     <div class="section-header-image">
         <img src="{{ asset('frontend') }}/img/header.jpg" alt="Header">

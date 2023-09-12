@@ -2,17 +2,24 @@
 
  <section class="section section-about">
      <div class="about-head slides">
-         <h3>Anasai Geografis</h3>
-         <p> Cari lokasi wisata, events dan lapak di sini.....</p>
+         <h3>Maps Of Anasai</h3>
+         <p> Temukan Destinasi Wisata, Acara Seru, dan Tempat Merchandise Menarik di Sini!</p>
          {{-- <p><b>Bavel</b> merupakan singkatan dari <b>Bali Travel Time</b> merupakan website yang bertujuan
              mengenalkan pesona keindahan Bali mulai dari Wisata dan Budaya .
              Tidak hanya sarana untuk memperkanalkan, <b>Bavel</b> juga menyediakan berbagai layanan pemesanan tiket
              mulai tiket Tour dan tempat penginapan di sekitar Bali </p> --}}
      </div>
      <div class="about-body">
-         <section class="my-3">
-             <div id="gmap" style="height: 600px; width:100%;"></div>
-         </section>
+         <div class="container" style="margin-bottom:10px;">
+             <input type="text" id="searchInput" class="form-control" style="border-radius: 20px;"
+                 placeholder="Cari lokasi tempat wisata, event, merchandise dan desa disini...">
+             <div class="search-results" style="display: none; margin-top:10px; ">
+                 <ul class="list-group">
+                     <li id="resultsList" style="cursor: pointer;" class="text-link list-group-item"></li>
+                 </ul>
+             </div>
+         </div>
+         <div id="gmap" style="height: 600px; width:100%;"></div>
      </div>
  </section>
  @push('script')
@@ -28,9 +35,9 @@
           * Function to init map
           */
          function initialize() {
-             var center = new google.maps.LatLng(-8.3983748, 140.4270463);
+             var center = new google.maps.LatLng(-8.4608154, 140.3311091);
              var mapOptions = {
-                 zoom: 12,
+                 zoom: 13,
                  center: center,
                  zoomControl: true,
                  mapTypeId: google.maps.MapTypeId.HYBRID
@@ -87,6 +94,80 @@
                      }
                  }
              });
+             //  $.ajax({
+             //      url: "{{ route('get_all_lapak') }}",
+             //      dataType: 'json',
+             //      method: 'GET',
+             //      headers: {
+             //          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+             //      },
+             //      success: function(response) {
+             //          markers1 = response.lapak.map(el => {
+             //              return {
+             //                  "id": el['id'],
+             //                  "nama": 'Lapak Marchandise ' + el[
+             //                      'nama_lapak'], // Sesuaikan dengan properti yang benar
+             //                  "latitude": parseFloat(el['latitude']),
+             //                  "longitude": parseFloat(el['longitude']),
+             //                  "foto": el['foto_url'],
+             //                  "source": "lapak",
+             //              }
+             //          });
+             //          for (i = 0; i < markers1.length; i++) {
+             //              addMarker(markers1[i]);
+             //          }
+             //      }
+             //  });
+             $.ajax({
+                 url: "{{ route('get_all_lapak') }}",
+                 dataType: 'json',
+                 method: 'GET',
+                 headers: {
+                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                 },
+                 success: function(response) {
+                     markers1 = response.lapak.map(el => {
+                         return {
+                             "id": el['id'],
+                             "nama": 'Lapak Marchandise ' + el['nama_lapak'],
+                             "latitude": parseFloat(el['latitude']),
+                             "longitude": parseFloat(el['longitude']),
+                             "foto": el['foto_url'],
+                             "produk": el['produk'], // Menambahkan daftar produk ke marker
+                             "source": "lapak",
+                         }
+                     });
+                     for (i = 0; i < markers1.length; i++) {
+                         addMarker(markers1[i]);
+                     }
+                 }
+             });
+
+             $.ajax({
+                 url: "{{ route('get_all_wisata') }}",
+                 dataType: 'json',
+                 method: 'GET',
+                 headers: {
+                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                 },
+                 success: function(response) {
+                     markers1 = response.map(el => {
+                         return {
+                             "id": el['id'],
+                             "nama": 'Wisata ' + el[
+                                 'nama_wisata'], // Sesuaikan dengan properti yang benar
+                             "latitude": parseFloat(el['latitude']),
+                             "longitude": parseFloat(el['longitude']),
+                             "harga": el['harga'],
+                             "foto": el['foto_url'],
+                             "source": "wisata",
+                         }
+                     });
+                     for (i = 0; i < markers1.length; i++) {
+                         addMarker(markers1[i]);
+                     }
+                 }
+             });
 
          }
          /**
@@ -113,28 +194,74 @@
                                         <strong>Keterangan : </strong>
                                         <p>${marker.keterangan}</p>
                                     </div>
-                                    <a href="https://maps.google.com/?saddr=My+Location&daddr=${marker.latitude},${marker.longitude}" target="_blank" class="btn btn-orange btn-round " style="margin-top:20px; margin-bottom:10px;">Rute</a>
+                                    <a href="https://maps.google.com/?saddr=My+Location&daddr=${marker.latitude},${marker.longitude}" target="_blank" class="btn btn-round " style="margin-top:20px; margin-bottom:10px; padding:5px 10px;">Detail</a>
+                                    <a href="https://maps.google.com/?saddr=My+Location&daddr=${marker.latitude},${marker.longitude}" target="_blank" class="btn btn-orange btn-round " style="margin-top:20px; margin-bottom:10px; padding:5px 10px;">Rute</a>
                                 </div>
                             </div>
                         `;
-             } else {
+             } else if (marker.source === 'kegiatan') {
                  content = `
                             <div class="popupContent"  style="width:200px;">
                                 <div class="text-center justify-content-center text-black">
                                     <h1>${marker.nama}</h1>
                                     <img loading="lazy" class="img-fluid mb-3" style="height:100px;" src="${marker.foto}"><br>
-                                    <a href="https://maps.google.com/?saddr=My+Location&daddr=${marker.latitude},${marker.longitude}" target="_blank" class="btn btn-orange btn-round " style="margin-top:20px; margin-bottom:10px;">Rute</a>
+                                    <a href="https://maps.google.com/?saddr=My+Location&daddr=${marker.latitude},${marker.longitude}" target="_blank" class="btn btn-round " style="margin-top:20px; margin-bottom:10px; padding:5px 10px;">Detail</a>
+                                    <a href="https://maps.google.com/?saddr=My+Location&daddr=${marker.latitude},${marker.longitude}" target="_blank" class="btn btn-orange btn-round " style="margin-top:20px; margin-bottom:10px; padding:5px 10px;">Rute</a>
                                 </div>
                             </div>
                         `;
+             } else if (marker.source === 'wisata') {
+                 content = `
+                            <div class="popupContent"  style="width:200px;">
+                                <div class="text-center justify-content-center text-black">
+                                    <h1>${marker.nama}</h1>
+                                    <img loading="lazy" class="img-fluid mb-3" style="height:100px;" src="${marker.foto}"><br>
+                                     <div style="margin-top:10px;">
+                                        <strong>Harga : </strong>${marker.harga}
+                                    </div>
+                                    <a href="https://maps.google.com/?saddr=My+Location&daddr=${marker.latitude},${marker.longitude}" target="_blank" class="btn btn-round " style="margin-top:20px; margin-bottom:10px; padding:5px 10px;">Detail</a>
+                                    <a href="https://maps.google.com/?saddr=My+Location&daddr=${marker.latitude},${marker.longitude}" target="_blank" class="btn btn-orange btn-round " style="margin-top:20px; margin-bottom:10px; padding:5px 10px;">Rute</a>
+                                </div>
+                            </div>
+                        `;
+             } else {
+                 content =
+                 `
+        <div class="popupContent" style="width:200px;">
+            <div class="text-center justify-content-center text-black">
+                <h1>${marker.nama}</h1>
+                <img loading="lazy" class="img-fluid mb-3" style="height:100px;" src="${marker.foto}"><br>
+                <div style="margin-top:10px;">
+                                        <strong>Daftar Produk </strong>
+                                    </div>
+                <ol class="produk-list" style="margin-top:10px; list-style-type: none;padding: 0;">`; // Mulai daftar produk
+
+                 // Tambahkan produk ke dalam daftar
+                 for (var i = 0; i < marker.produk.length; i++) {
+                     var hargaFormatted = marker.produk[i].harga.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                     content += `<li>${marker.produk[i].nama_produk} <br><strong>Rp ${hargaFormatted}</strong></li>`;
+                 }
+
+                 content += `</ol>`; // Akhiri daftar produk
+
+                 content += `
+                <a href="https://maps.google.com/?saddr=My+Location&daddr=${marker.latitude},${marker.longitude}" target="_blank" class="btn btn-round " style="margin-top:20px; margin-bottom:10px; padding:5px 10px;">Detail</a>
+                <a href="https://maps.google.com/?saddr=My+Location&daddr=${marker.latitude},${marker.longitude}" target="_blank" class="btn btn-orange btn-round " style="margin-top:20px; margin-bottom:10px; padding:5px 10px;">Rute</a>
+            </div>
+        </div>
+    `;
+
              }
              //  var theIcon = `{{ asset('img/marker-merah.png') }}`;
              var theIcon =
-                 `${marker.source === 'desa' ? '{{ asset('img/marker-merah.png') }}' : '{{ asset('img/marker-hijau.png') }}'}`;
+                 `${marker.source === 'desa' ? '{{ asset('img/marker-merah.png') }}' : 
+        marker.source === 'kegiatan' ? '{{ asset('img/marker-hijau.png') }}' : 
+        marker.source === 'wisata' ? '{{ asset('img/marker-wisata.png') }}' : 
+        '{{ asset('img/marker-lapak.png') }}'}`;
 
              var icon = {
                  url: theIcon,
-                 scaledSize: new google.maps.Size(25, 39)
+                 scaledSize: new google.maps.Size(28, 39)
              };
              marker1 = new google.maps.Marker({
                  title: title,
@@ -172,5 +299,43 @@
          }
          // Init map
          initialize();
+
+         // Fungsi untuk menangani pencarian
+         function searchMarkers() {
+             var input, filter, ul, li, a, i, txtValue;
+             input = document.getElementById('searchInput');
+             filter = input.value.toUpperCase();
+
+             document.querySelector('.search-results').style.display = 'none';
+
+             var resultsList = document.getElementById('resultsList');
+             resultsList.innerHTML = '';
+
+             for (i = 0; i < gmarkers1.length; i++) {
+                 var marker = gmarkers1[i];
+                 txtValue = marker.title.toUpperCase();
+                 if (txtValue.indexOf(filter) > -1) {
+                     marker.setVisible(true);
+
+                     document.querySelector('.search-results').style.display = 'block';
+
+                     var resultItem = document.createElement('li');
+                     resultItem.innerText = marker.title;
+                     resultItem.addEventListener('click', (function(marker) {
+                         return function() {
+                             map.setZoom(16);
+                             map.setCenter(marker.getPosition());
+                             //  infowindow.setContent(marker.content);
+                             //  infowindow.open(map, marker);
+                         }
+                     })(marker));
+                     resultsList.appendChild(resultItem);
+                 } else {
+                     marker.setVisible(false);
+                 }
+             }
+         }
+
+         document.getElementById('searchInput').addEventListener('input', searchMarkers);
      </script>
  @endpush

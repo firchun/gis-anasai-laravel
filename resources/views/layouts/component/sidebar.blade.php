@@ -4,7 +4,7 @@
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('/') }}">
         <div class="sidebar-brand-icon ">
             {{-- <i class="fa-brands fa-stack-overflow"></i> --}}
-            <img src="{{ asset('img/favicon.png') }}" class="img-fluid" style="height:30px;">
+            <img src="{{ asset('frontend') }}/img/icon/bavel.png" class="img-fluid" style="height:30px;">
         </div>
         <div class="sidebar-brand-text mx-3">{{ config('app.name', 'SIPETA') }}</div>
     </a>
@@ -31,21 +31,37 @@
     <!-- Nav Item - desa -->
     <li class="nav-item {{ Nav::isRoute('desa') }}">
         <a class="nav-link" href="{{ url('/desa') }}">
-            <i class="fas fa-bars"></i>
+            <i class="fas fa-folder"></i>
             <span>{{ __('Desa') }}</span>
+        </a>
+    </li>
+    <!-- Nav Item - wisata -->
+    <li class="nav-item {{ Nav::isRoute('wisata') }}">
+        <a class="nav-link" href="{{ url('/wisata') }}">
+            <i class="fas fa-folder"></i>
+            <span>{{ __('Wisata') }}</span>
         </a>
     </li>
     <!-- Nav Item - kegiatan -->
     <li class="nav-item {{ Nav::isRoute('kegiatan') }}">
         <a class="nav-link" href="{{ url('/kegiatan') }}">
-            <i class="fas fa-bars"></i>
+            <i class="fas fa-folder"></i>
             <span>{{ __('Event') }}</span>
         </a>
     </li>
+    <!-- Nav Item - lapak -->
+    <li class="nav-item {{ Nav::isRoute('lapak') }}">
+        <a class="nav-link" href="{{ url('/lapak') }}">
+            <i class="fas fa-folder"></i>
+            <span>{{ __('Lapak') }}</span>
+        </a>
+    </li>
     {{-- start admin --}}
-
+    <hr class="sidebar-divider d-none d-md-block">
     {{-- end admin --}}
     <!-- Heading -->
+
+
     <div class="sidebar-heading">
         {{ __('Settings') }}
     </div>

@@ -9,53 +9,24 @@
               dapat anda jelajahi</p>
       </div>
       <div class="section-discover-body slides">
-          <div class="col">
-              <a href="destination.html">
-                  <img src="{{ asset('frontend') }}/img/selfie.jpg" alt="Destination">
-                  <div class="caption">
-                      <p>DESTINATION</p>
-                      <div class="line"></div>
-                      <div class="caption-text">
-                          <p>Kunjungi destinasi wisata yang belum pernah anda temui sebelumnya</p>
+          @foreach ($kegiatan as $item)
+              <div class="col">
+                  <a href="destination.html">
+                      <img src="{{ $item->foto ? Storage::url($item->foto) : asset('img/no-image.jpg') }}"
+                          alt="Destination">
+                      <div class="caption">
+                          <p>{{ $item->nama_kegiatan }}</p>
+                          <div class="line"></div>
+                          <div class="caption-text">
+                              <p>{{ $item->keterangan ?? 'Keterangan tidak tersedia' }}</p>
+                          </div>
                       </div>
-                  </div>
-              </a>
-          </div>
-          <div class="col">
-              <a href="culture.html">
-                  <img src="{{ asset('frontend') }}/img/culture.jpg">
-                  <div class="caption" alt="Culture">
-                      <p>CULTURE</p>
-                      <div class="line"></div>
-                      <div class="caption-text">
-                          <p>Selain pemandangan yang indah bali juga memiliki budaya yang mengesankan</p>
-                      </div>
-                  </div>
-              </a>
-          </div>
-          <div class="col">
-              <a href="event.html">
-                  <img src="{{ asset('frontend') }}/img/event.jpg">
-                  <div class="caption" alt="Event">
-                      <p>EVENT</p>
-                      <div class="line"></div>
-                      <div class="caption-text">
-                          <p>Ikuti dan ketahui event - event menarik yang berlangsung di Bali</p>
-                      </div>
-                  </div>
-              </a>
-          </div>
-          <div class="col">
-              <a href="stay.html">
-                  <img src="{{ asset('frontend') }}/img/stay.jpg">
-                  <div class="caption" alt="Stay">
-                      <p>WHERE TO STAY</p>
-                      <div class="line"></div>
-                      <div class="caption-text">
-                          <p>Temukan tempat penginapan terbaik dengan harga yang relatif murah</p>
-                      </div>
-                  </div>
-              </a>
-          </div>
+                  </a>
+              </div>
+          @endforeach
+
+      </div>
+      <div class="text-center" style="margin-top:20px; margin-bottom:20px;">
+          <a href="{{ url('/event') }}" class="btn btn-orange btn-round">Tampilkan lainnya..</a>
       </div>
   </section>

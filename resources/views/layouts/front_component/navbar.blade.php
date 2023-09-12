@@ -9,7 +9,9 @@
           <div class="navbar-item">
               <a href="{{ url('/') }}" class="navbar-title">Anasai</a>
               <ul>
-                  <li><a href="{{ url('/') }}">Lapak</a></li>
+                  <li><a href="{{ url('/merchandise') }}">Merchandise</a></li>
+                  <li><a href="{{ url('/village') }}">Desa</a></li>
+                  <li><a href="{{ url('/event') }}">Event</a></li>
                   @guest
                       <li><button class="btn-login" id="openLogin">LOGIN</button></li>
                   @else

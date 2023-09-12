@@ -56,11 +56,70 @@
             <span>{{ __('Lapak') }}</span>
         </a>
     </li>
-    {{-- start admin --}}
+    <hr class="sidebar-divider d-none d-md-block">
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        {{ __('Pengguna') }}
+    </div>
+
+    <!-- Nav Item - admin -->
+    <li class="nav-item {{ Nav::isRoute('admin') }}">
+        <a class="nav-link" href="{{ route('admin') }}">
+            <i class="fas fa-fw fa-users"></i>
+            <span>{{ __('Admin') }}</span>
+        </a>
+    </li>
+    <!-- Nav Item - admin -->
+    <li class="nav-item {{ Nav::isRoute('seller') }}">
+        <a class="nav-link" href="{{ route('seller') }}">
+            <i class="fas fa-fw fa-users"></i>
+            <span>{{ __('Seller') }}</span>
+        </a>
+    </li>
+    <!-- Nav Item - admin -->
+    <li class="nav-item {{ Nav::isRoute('member') }}">
+        <a class="nav-link" href="{{ route('member') }}">
+            <i class="fas fa-fw fa-users"></i>
+            <span>{{ __('Member') }}</span>
+        </a>
+    </li>
+
     <hr class="sidebar-divider d-none d-md-block">
     {{-- end admin --}}
     <!-- Heading -->
-
+    <div class="sidebar-heading">
+        {{ __('Laporan') }}
+    </div>
+    <!-- Nav Item - desa -->
+    <li class="nav-item {{ Nav::isRoute('laporan.desa') }}">
+        <a class="nav-link" href="{{ url('/laporan/desa') }}">
+            <i class="fas fa-folder"></i>
+            <span>{{ __('Laporan Desa') }}</span>
+        </a>
+    </li>
+    <!-- Nav Item - wisata -->
+    <li class="nav-item {{ Nav::isRoute('laporan.wisata') }}">
+        <a class="nav-link" href="{{ url('/laporan/wisata') }}">
+            <i class="fas fa-folder"></i>
+            <span>{{ __('Laporan Wisata') }}</span>
+        </a>
+    </li>
+    <!-- Nav Item - kegiatan -->
+    <li class="nav-item {{ Nav::isRoute('laporan.kegiatan') }}">
+        <a class="nav-link" href="{{ url('/laporan/kegiatan') }}">
+            <i class="fas fa-folder"></i>
+            <span>{{ __('Laporan Event') }}</span>
+        </a>
+    </li>
+    <!-- Nav Item - lapak -->
+    <li class="nav-item {{ Nav::isRoute('laporan.lapak') }}">
+        <a class="nav-link" href="{{ url('/laporan/lapak') }}">
+            <i class="fas fa-folder"></i>
+            <span>{{ __('Laporan Lapak') }}</span>
+        </a>
+    </li>
+    {{-- start admin --}}
+    <hr class="sidebar-divider d-none d-md-block">
 
     <div class="sidebar-heading">
         {{ __('Settings') }}
@@ -73,8 +132,6 @@
             <span>{{ __('Profile') }}</span>
         </a>
     </li>
-
-
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">

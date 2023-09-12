@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\AkunController;
 use App\Http\Controllers\DesaController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\LapakController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WisataController;
 use App\Models\Kegiatan;
@@ -33,6 +35,16 @@ Auth::routes(['verify' => true]);
 
 //route dashboard
 Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware(['auth', 'verified']);
+//route pengguna
+//pengguna : admin
+Route::get('/admin', [AkunController::class, 'admin'])->name('admin');
+Route::post('/admin/store', [AkunController::class, 'store_admin'])->name('admin.store');
+Route::put('/admin/update/{id}', [AkunController::class, 'update_admin'])->name('admin.update');
+Route::delete('/admin/destroy/{id}', [AkunController::class, 'destroy_admin'])->name('admin.destroy');
+//pengguna : seller
+Route::get('/seller', [AkunController::class, 'seller'])->name('seller');
+//pengguna : member
+Route::get('/member', [AkunController::class, 'member'])->name('member');
 //route profile
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
@@ -56,9 +68,18 @@ Route::get('/lapak', [LapakController::class, 'index'])->name('lapak');
 Route::post('/lapak/store', [LapakController::class, 'store'])->name('lapak.store');
 Route::put('/lapak/update/{id}', [LapakController::class, 'update'])->name('lapak.update');
 Route::delete('/lapak/destroy/{id}', [LapakController::class, 'destroy'])->name('lapak.destroy');
-//produk
+//route produk
 Route::get('/lapak/produk/{id}', [LapakController::class, 'produk_lapak'])->name('lapak.produk');
 Route::post('/lapak/produk/store', [LapakController::class, 'store_produk'])->name('lapak.produk.store');
 Route::post('/lapak/produk/store_stok', [LapakController::class, 'store_stok'])->name('lapak.produk.store_stok');
 Route::put('/lapak/produk/update/{id}', [LapakController::class, 'update_produk'])->name('lapak.produk.update');
 Route::delete('/lapak/produk/destroy/{id}', [LapakController::class, 'destroy_produk'])->name('lapak.produk.destroy');
+//route laporan
+Route::get('/laporan/wisata', [LaporanController::class, 'wisata'])->name('laporan.wisata');
+Route::get('/laporan/exportWisata', [LaporanController::class, 'exportWisata'])->name('laporan.exportWisata');
+Route::get('/laporan/lapak', [LaporanController::class, 'lapak'])->name('laporan.lapak');
+Route::get('/laporan/exportLapak', [LaporanController::class, 'exportLapak'])->name('laporan.exportLapak');
+Route::get('/laporan/desa', [LaporanController::class, 'desa'])->name('laporan.desa');
+Route::get('/laporan/exportDesa', [LaporanController::class, 'exportDesa'])->name('laporan.exportDesa');
+Route::get('/laporan/kegiatan', [LaporanController::class, 'kegiatan'])->name('laporan.kegiatan');
+Route::get('/laporan/exportKegiatan', [LaporanController::class, 'exportKegiatan'])->name('laporan.exportKegiatan');

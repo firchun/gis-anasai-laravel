@@ -7,6 +7,7 @@ use App\Models\ProdukLapak;
 use App\Models\ProdukStok;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -16,7 +17,7 @@ class LapakController extends Controller
     {
         $data = [
             'title' => 'Master Data Lapak ',
-            'lapak' => Lapak::all(),
+            'lapak' => Auth::user()->role != 'seller' ? Lapak::all() : Lapak::where('id_user', Auth::user()->id)->get(),
         ];
         return view('pages.lapak.index', $data);
     }

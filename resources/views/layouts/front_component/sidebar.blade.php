@@ -8,10 +8,20 @@
         <li class="sidebar-list-hover"><a href="{{ url('/event') }}">Event</a></li>
         @guest
             <li>
-                <button class="btn-login btn btn-orange btn-round" id="openLogin">LOGIN</button>
+                <a class="btn-login btn btn-orange btn-round" href="{{ route('login') }}">LOGIN</a>
             </li>
         @else
-            <li class="sidebar-list-hover"><a href="{{ route('home') }}">Dashboard</a></li>
+            @if (Auth::user()->role == 'member')
+                <li><a href="{{ route('logout') }}" style="color:orangered;"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                </li>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+            @else
+                <li class="sidebar-list-hover"><a href="{{ route('home') }}" style="color:orangered;">Dashboard</a></li>
+            @endif
         @endguest
     </ul>
 </div>

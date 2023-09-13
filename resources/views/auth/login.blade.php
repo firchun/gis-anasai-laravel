@@ -18,13 +18,8 @@
                                             <img src="{{ asset('img/favicon.png') }}" class="img-fluid"
                                                 style="height:80px;">
                                         </div>
-                                        <h1 class="text-primary mb-0"><b>{{ __('SIPETA') }}</b></h1>
-                                        <small class="text-muted"><em>Sistem Informasi Kepegawaian Terpadu Berbasis
-                                                Aplikasi</em></small><br>
-                                        <small><b class="text-primary">Dinas Tanaman Pangan, Hortikultura dan Perkebunan
-                                            </b><br>Kabupaten
-                                            Merauke
-                                        </small>
+                                        <h1 class="text-primary mb-0"><b>{{ env('APP_NAME') }}</b></h1>
+
                                         <hr>
 
                                         {{-- <P class="text-muted mb-3">Login untuk dapat mengakses berkas..</P> --}}
@@ -49,13 +44,13 @@
                                         {{-- <input type="hidden" name="_token" value="{{ csrf_token() }}"> --}}
                                         @csrf
                                         <div class="form-group">
-                                            <input type="text" class="form-control form-control-user" name="nip"
-                                                placeholder="{{ __('NIP / Email') }}" value="{{ old('nip') }}" required
+                                            <input type="text" class="form-control " name="email"
+                                                placeholder="{{ __('Email') }}" value="{{ old('email') }}" required
                                                 autofocus>
                                         </div>
 
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user" name="password"
+                                            <input type="password" class="form-control " name="password"
                                                 placeholder="{{ __('Password') }}" required>
                                         </div>
 
@@ -73,20 +68,21 @@
                                             </button>
                                         </div>
                                     </form>
-                                    {{-- @if (Route::has('password.request'))
+                                    <hr>
+                                    @if (Route::has('password.request'))
                                         <div class="text-center">
                                             <a class="small" href="{{ route('password.request') }}">
                                                 {{ __('Forgot Password?') }}
                                             </a>
                                         </div>
-                                    @endif --}}
+                                    @endif
 
-                                    {{-- @if (Route::has('register'))
+                                    @if (Route::has('register'))
                                         <div class="text-center">
                                             <a class="small"
                                                 href="{{ route('register') }}">{{ __('Create an Account!') }}</a>
                                         </div>
-                                    @endif --}}
+                                    @endif
                                 </div>
                             </div>
                         </div>

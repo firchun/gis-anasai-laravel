@@ -15,7 +15,17 @@
                   @guest
                       <li><button class="btn-login" id="openLogin">LOGIN</button></li>
                   @else
-                      <li><a href="{{ route('home') }}" class="text-danger">Dashboard</a></li>
+                      @if (Auth::user()->role == 'member')
+                          <li><a href="{{ route('logout') }}" style="color:orangered;"
+                                  onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                          </li>
+
+                          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                              @csrf
+                          </form>
+                      @else
+                          <li><a href="{{ route('home') }}" style="color:orangered;">Dashboard</a></li>
+                      @endif
                   @endguest
               </ul>
           </div>

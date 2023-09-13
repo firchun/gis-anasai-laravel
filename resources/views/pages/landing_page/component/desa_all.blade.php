@@ -11,7 +11,7 @@
       <div class="section-discover-body slides">
           @foreach ($desa as $item)
               <div class="col">
-                  <a href="destination.html">
+                  <a href="{{ route('village.detail', $item->id) }}">
                       <img src="{{ $item->foto ? Storage::url($item->foto) : asset('img/no-image.jpg') }}"
                           alt="Destination">
                       <div class="caption">

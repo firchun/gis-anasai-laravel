@@ -24,7 +24,8 @@
                                  <span class="ion-ios-star"></span> <br>
                                  <span class="ion-bag big"></span> &nbsp;
                                  <b>Rp. {{ number_format($item->harga) }}</b>
-                                 <a href="{{ url('/') }}" class="btn btn-orange btn-round right "> Details</a>
+                                 <a href="{{ route('merchandise.detail', $item->id) }}"
+                                     class="btn btn-orange btn-round right "> Details</a>
                              </div>
                          </div>
                      </div>

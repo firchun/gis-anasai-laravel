@@ -32,6 +32,15 @@ class FrontController extends Controller
         ];
         return view('pages.landing_page.desa', $data);
     }
+    public function desa_detail($id)
+    {
+        $desa = Desa::findOrFail($id);
+        $data = [
+            'title' => 'Desa : ' . $desa->nama_desa,
+            'desa' => $desa,
+        ];
+        return view('pages.landing_page.desa_detail', $data);
+    }
     public function event()
     {
         $data = [
@@ -40,12 +49,30 @@ class FrontController extends Controller
         ];
         return view('pages.landing_page.event', $data);
     }
+    public function event_detail($id)
+    {
+        $kegiatan = Kegiatan::findOrFail($id);
+        $data = [
+            'title' => 'Event : ' . $kegiatan->nama_kegiatan,
+            'kegiatan' => $kegiatan,
+        ];
+        return view('pages.landing_page.event_detail', $data);
+    }
     public function merchandise()
     {
         $data = [
-            'title' => '- Event Pada Anasai',
+            'title' => '- Merchandise',
             'produk_lapak' => ProdukLapak::latest()->paginate(20),
         ];
         return view('pages.landing_page.merchandise', $data);
+    }
+    public function merchandise_detail($id)
+    {
+        $produk_lapak = ProdukLapak::findOrFail($id);
+        $data = [
+            'title' => 'Merchandise : ' . $produk_lapak->nama_produk,
+            'produk_lapak' => $produk_lapak,
+        ];
+        return view('pages.landing_page.merchandise_detail', $data);
     }
 }

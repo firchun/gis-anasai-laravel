@@ -8,4 +8,6 @@
     @include('layouts.component.alert_validate')
 
     @include('pages.dashboard.component.title')
+
+    @include('pages.dashboard.component.maps')
 @endsection

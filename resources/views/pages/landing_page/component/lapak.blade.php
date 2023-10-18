@@ -9,18 +9,16 @@
      <div class="section-tour-body">
          <div class="row">
              @foreach ($produk_lapak as $item)
-                 <div class="col-1 slides">
+                 <div class="col-2 slides slideanim">
                      <img src="{{ $item->foto ? Storage::url($item->foto) : asset('img/no-image.jpg') }}">
                      <div class="overlay">
                          <div class="caption">
                              <div class="caption-text">
-                                 <p>{{ $item->nama_produk }}</p>
-                                 <small>Lapak : {{ $item->lapak->nama_lapak }}, Milik :
-                                     {{ $item->lapak->user->name }}</small><br>
+                                 <strong>{{ $item->nama_produk }}</strong><br>
                                  <span class="ion-ios-star checked"></span>
                                  <span class="ion-ios-star checked"></span>
                                  <span class="ion-ios-star checked"></span>
-                                 <span class="ion-ios-star"></span>
+                                 <span class="ion-ios-star checked"></span>
                                  <span class="ion-ios-star"></span> <br>
                                  <span class="ion-bag big"></span> &nbsp;
                                  <b>Rp. {{ number_format($item->harga) }}</b>

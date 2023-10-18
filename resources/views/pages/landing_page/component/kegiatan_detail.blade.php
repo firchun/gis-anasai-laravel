@@ -6,12 +6,12 @@
           <h3 class="section-title">{{ $title }}</h3>
 
       </div>
-      <div class="container">
-          <div style="margin-bottom:20px; " class="text-center">
+      <div style="margin-bottom:20px; " class="text-center">
 
-              <img src="{{ $kegiatan->foto ? Storage::url($kegiatan->foto) : asset('img/no-image.jpg') }}"
-                  alt="Destination">
-          </div>
+          <img src="{{ $kegiatan->foto ? Storage::url($kegiatan->foto) : asset('img/no-image.jpg') }}" alt="Destination"
+              style="border-radius: 20px; box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;">
+      </div>
+      <div class="container">
           <strong>Informasi event :</strong><br>
           <p>{{ $kegiatan->keterangan }}</p>
       </div>

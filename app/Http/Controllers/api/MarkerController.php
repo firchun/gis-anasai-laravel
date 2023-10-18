@@ -29,6 +29,7 @@ class MarkerController extends Controller
         $desa->each(function ($desa) {
             $desa->foto_url = $desa->foto !== null ? url(Storage::url($desa->foto)) : asset('img/no-image.png');
             $desa->keterangan = $desa->keterangan !== null ? $desa->keterangan : 'Keterangan tidak tersedia';
+            $desa->detail_url = url('village/detail', $desa->id);
         });
         return response()->json($desa);
     }
@@ -42,6 +43,7 @@ class MarkerController extends Controller
             ->get();
         $kegiatan->each(function ($kegiatan) {
             $kegiatan->foto_url = $kegiatan->foto !== null ?  url(Storage::url($kegiatan->foto)) : asset('img/no-image.png');
+            $kegiatan->detail_url = url('event/detail', $kegiatan->id);
         });
         return response()->json($kegiatan);
     }
@@ -56,6 +58,7 @@ class MarkerController extends Controller
 
         $lapak->each(function ($lapak) {
             $lapak->foto_url = $lapak->foto !== null ?  url(Storage::url($lapak->foto)) : asset('img/no-image.png');
+            $lapak->detail_url = url('merchandise/detail', $lapak->id);
         });
 
         $produkList = [];
@@ -82,6 +85,7 @@ class MarkerController extends Controller
         $Wisata->each(function ($Wisata) {
             $Wisata->foto_url = $Wisata->foto !== null ?  url(Storage::url($Wisata->foto)) : asset('img/no-image.png');
             $Wisata->harga = 'Rp ' . number_format($Wisata->harga);
+            $Wisata->detail_url = url('tour/detail', $Wisata->id);
         });
         return response()->json($Wisata);
     }

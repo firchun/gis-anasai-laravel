@@ -31,6 +31,8 @@ Route::get('/village', [FrontController::class, 'desa'])->name('village');
 Route::get('/village/detail/{id}', [FrontController::class, 'desa_detail'])->name('village.detail');
 Route::get('/event', [FrontController::class, 'event'])->name('event');
 Route::get('/event/detail/{id}', [FrontController::class, 'event_detail'])->name('event.detail');
+Route::get('/tour', [FrontController::class, 'wisata'])->name('tour');
+Route::get('/tour/detail/{id}', [FrontController::class, 'wisata_detail'])->name('tour.detail');
 Route::get('/merchandise', [FrontController::class, 'merchandise'])->name('merchandise');
 Route::get('/merchandise/detail/{id}', [FrontController::class, 'merchandise_detail'])->name('merchandise.detail');
 

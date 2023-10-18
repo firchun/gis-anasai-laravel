@@ -88,6 +88,8 @@
     @include('pages.desa.components.modal_create')
 @endsection
 @push('js')
-    <script src="https://maps.googleapis.com/maps/api/js?&key=AIzaSyA1MgLuZuyqR_OGY3ob3M52N46TDBRI_9k&libraries=places">
-    </script>
+    {{-- <script src="https://maps.googleapis.com/maps/api/js?&key=AIzaSyA1MgLuZuyqR_OGY3ob3M52N46TDBRI_9k&libraries=places">
+    </script> --}}
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1MgLuZuyqR_OGY3ob3M52N46TDBRI_9k&callback=initMapCreate"
+        async defer></script>
 @endpush

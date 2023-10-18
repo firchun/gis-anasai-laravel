@@ -58,6 +58,23 @@ class FrontController extends Controller
         ];
         return view('pages.landing_page.event_detail', $data);
     }
+    public function wisata()
+    {
+        $data = [
+            'title' => '- wisata Pada Anasai',
+            'wisata' => Wisata::latest()->paginate(10),
+        ];
+        return view('pages.landing_page.wisata', $data);
+    }
+    public function wisata_detail($id)
+    {
+        $wisata = Wisata::findOrFail($id);
+        $data = [
+            'title' => 'wisata : ' . $wisata->nama_wisata,
+            'wisata' => $wisata,
+        ];
+        return view('pages.landing_page.wisata_detail', $data);
+    }
     public function merchandise()
     {
         $data = [

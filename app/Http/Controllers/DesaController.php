@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Desa;
+use App\Models\DesaDetail;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -27,6 +28,8 @@ class DesaController extends Controller
             'latitude' => ['required'],
             'longitude' => ['required'],
             'foto' => ['nullable', 'mimes:jpeg,png,jpg,gif'],
+            'titles.*' => ['required'],
+            'descriptions.*' => ['required'],
         ]);
         $desa = new Desa();
         if ($request->hasFile('foto')) {
@@ -42,6 +45,29 @@ class DesaController extends Controller
         $desa->keterangan = $request->keterangan;
 
         if ($desa->save()) {
+
+            // Buat dan simpan data JSON pada model DesaDetail
+            $desaDetail = new DesaDetail();
+            $desaDetail->id_desa = $desa->id; // Pastikan model DesaDetail memiliki relasi ke model Desa
+            $jsonData = [];
+
+            foreach ($request->title as $key => $title) {
+                // Buat data JSON dari request
+                $itemData = [
+                    'title' => $title, // Menggunakan $title dari form
+                    'description' => $request->description[$key], // Menggunakan description sesuai dengan indeksnya
+                ];
+
+                // Tambahkan itemData ke array jsonData
+                $jsonData[] = $itemData;
+            }
+
+            // Setelah iterasi selesai, ubah $jsonData menjadi JSON dan simpan
+            $desaDetail->data = json_encode($jsonData);
+            $desaDetail->save();
+
+
+
             return redirect()->back()->with('success', 'Berhasil menambahkan desa');
         } else {
             return redirect()->back()->with('danger', 'Gagal menambahkan desa');
@@ -105,6 +131,8 @@ class DesaController extends Controller
             if ($desa->foto != '') {
                 Storage::delete($desa->foto);
             }
+            $desa_detail = DesaDetail::where('id_desa', $desa->id);
+            $desa_detail->delete();
             $desa->delete();
             return back()->with(['success' => 'Berhasil menghapus data']);
         } catch (QueryException $e) {

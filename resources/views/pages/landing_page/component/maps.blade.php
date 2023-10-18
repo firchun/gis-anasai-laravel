@@ -59,6 +59,7 @@
                              "latitude": parseFloat(el['latitude']),
                              "longitude": parseFloat(el['longitude']),
                              "foto": el['foto_url'],
+                             "detail": el['detail_url'],
                              "jumlah_kk": el['jumlah_kk'] + ' Kepala Keluarga',
                              "jumlah_jiwa": el['jumlah_jiwa'] + ' Jiwa',
                              "keterangan": el['keterangan'],
@@ -86,6 +87,7 @@
                              "latitude": parseFloat(el['latitude']),
                              "longitude": parseFloat(el['longitude']),
                              "foto": el['foto_url'],
+                             "detail": el['detail_url'],
                              "source": "kegiatan",
                          }
                      });
@@ -133,6 +135,7 @@
                              "latitude": parseFloat(el['latitude']),
                              "longitude": parseFloat(el['longitude']),
                              "foto": el['foto_url'],
+                             "detail": el['detail_url'],
                              "produk": el['produk'], // Menambahkan daftar produk ke marker
                              "source": "lapak",
                          }
@@ -160,6 +163,7 @@
                              "longitude": parseFloat(el['longitude']),
                              "harga": el['harga'],
                              "foto": el['foto_url'],
+                             "detail": el['detail_url'],
                              "source": "wisata",
                          }
                      });
@@ -194,7 +198,7 @@
                                         <strong>Keterangan : </strong>
                                         <p>${marker.keterangan}</p>
                                     </div>
-                                    <a href="https://maps.google.com/?saddr=My+Location&daddr=${marker.latitude},${marker.longitude}" target="_blank" class="btn btn-round " style="margin-top:20px; margin-bottom:10px; padding:5px 10px;">Detail</a>
+                                    <a href="${marker.detail}" target="_blank" class="btn btn-round " style="margin-top:20px; margin-bottom:10px; padding:5px 10px;">Detail</a>
                                     <a href="https://maps.google.com/?saddr=My+Location&daddr=${marker.latitude},${marker.longitude}" target="_blank" class="btn btn-orange btn-round " style="margin-top:20px; margin-bottom:10px; padding:5px 10px;">Rute</a>
                                 </div>
                             </div>
@@ -205,7 +209,7 @@
                                 <div class="text-center justify-content-center text-black">
                                     <h1>${marker.nama}</h1>
                                     <img loading="lazy" class="img-fluid mb-3" style="height:100px;" src="${marker.foto}"><br>
-                                    <a href="https://maps.google.com/?saddr=My+Location&daddr=${marker.latitude},${marker.longitude}" target="_blank" class="btn btn-round " style="margin-top:20px; margin-bottom:10px; padding:5px 10px;">Detail</a>
+                                    <a href="${marker.detail}" target="_blank" class="btn btn-round " style="margin-top:20px; margin-bottom:10px; padding:5px 10px;">Detail</a>
                                     <a href="https://maps.google.com/?saddr=My+Location&daddr=${marker.latitude},${marker.longitude}" target="_blank" class="btn btn-orange btn-round " style="margin-top:20px; margin-bottom:10px; padding:5px 10px;">Rute</a>
                                 </div>
                             </div>
@@ -219,14 +223,14 @@
                                      <div style="margin-top:10px;">
                                         <strong>Harga : </strong>${marker.harga}
                                     </div>
-                                    <a href="https://maps.google.com/?saddr=My+Location&daddr=${marker.latitude},${marker.longitude}" target="_blank" class="btn btn-round " style="margin-top:20px; margin-bottom:10px; padding:5px 10px;">Detail</a>
+                                    <a href="${marker.detail}" target="_blank" class="btn btn-round " style="margin-top:20px; margin-bottom:10px; padding:5px 10px;">Detail</a>
                                     <a href="https://maps.google.com/?saddr=My+Location&daddr=${marker.latitude},${marker.longitude}" target="_blank" class="btn btn-orange btn-round " style="margin-top:20px; margin-bottom:10px; padding:5px 10px;">Rute</a>
                                 </div>
                             </div>
                         `;
              } else {
                  content =
-                 `
+                     `
         <div class="popupContent" style="width:200px;">
             <div class="text-center justify-content-center text-black">
                 <h1>${marker.nama}</h1>
@@ -245,7 +249,7 @@
                  content += `</ol>`; // Akhiri daftar produk
 
                  content += `
-                <a href="https://maps.google.com/?saddr=My+Location&daddr=${marker.latitude},${marker.longitude}" target="_blank" class="btn btn-round " style="margin-top:20px; margin-bottom:10px; padding:5px 10px;">Detail</a>
+                 <a href="${marker.detail}" target="_blank" class="btn btn-round " style="margin-top:20px; margin-bottom:10px; padding:5px 10px;">Detail</a>
                 <a href="https://maps.google.com/?saddr=My+Location&daddr=${marker.latitude},${marker.longitude}" target="_blank" class="btn btn-orange btn-round " style="margin-top:20px; margin-bottom:10px; padding:5px 10px;">Rute</a>
             </div>
         </div>

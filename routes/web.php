@@ -35,6 +35,8 @@ Route::get('/tour', [FrontController::class, 'wisata'])->name('tour');
 Route::get('/tour/detail/{id}', [FrontController::class, 'wisata_detail'])->name('tour.detail');
 Route::get('/merchandise', [FrontController::class, 'merchandise'])->name('merchandise');
 Route::get('/merchandise/detail/{id}', [FrontController::class, 'merchandise_detail'])->name('merchandise.detail');
+Route::get('/shop', [FrontController::class, 'shop'])->name('shop');
+Route::get('/shop/detail/{id}', [FrontController::class, 'shop_detail'])->name('shop.detail');
 
 Auth::routes(['verify' => true]);
 Route::middleware(['auth:web', 'role:admin,seller'])->group(function () {

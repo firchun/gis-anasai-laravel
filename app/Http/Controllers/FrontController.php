@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Desa;
 use App\Models\Kegiatan;
+use App\Models\Lapak;
 use App\Models\ProdukLapak;
 use App\Models\ProdukStok;
 use App\Models\Wisata;
@@ -91,5 +92,24 @@ class FrontController extends Controller
             'produk_lapak' => $produk_lapak,
         ];
         return view('pages.landing_page.merchandise_detail', $data);
+    }
+    public function shop()
+    {
+        $data = [
+            'title' => '- shop',
+            'toko' => Lapak::latest()->paginate(20),
+        ];
+        return view('pages.landing_page.shop', $data);
+    }
+    public function shop_detail($id)
+    {
+        $toko = Lapak::findOrFail($id);
+        $produk_toko = ProdukLapak::where('id_lapak', $id)->get();
+        $data = [
+            'title' => 'Toko : ' . $toko->nama_lapak,
+            'toko' => $toko,
+            'produk_toko' => $produk_toko,
+        ];
+        return view('pages.landing_page.shop_detail', $data);
     }
 }

@@ -58,7 +58,7 @@ class MarkerController extends Controller
 
         $lapak->each(function ($lapak) {
             $lapak->foto_url = $lapak->foto !== null ?  url(Storage::url($lapak->foto)) : asset('img/no-image.png');
-            $lapak->detail_url = url('merchandise/detail', $lapak->id);
+            $lapak->detail_url = url('shop/detail', $lapak->id);
         });
 
         $produkList = [];

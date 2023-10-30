@@ -188,7 +188,7 @@
                  content = `
                             <div class="popupContent" style="width:200px;">
                                 <div class="text-center justify-content-center text-black">
-                                    <h1>${marker.nama}</h1>
+                                    <h3>${marker.nama}</h3>
                                     <img loading="lazy" class="img-fluid mb-3" style="height:100px;" src="${marker.foto}">
                                     <div style="margin-top:10px;">
                                         <strong>Jumlah KK : </strong>${marker.jumlah_kk}<br>
@@ -207,7 +207,7 @@
                  content = `
                             <div class="popupContent"  style="width:200px;">
                                 <div class="text-center justify-content-center text-black">
-                                    <h1>${marker.nama}</h1>
+                                    <h3>${marker.nama}</h3>
                                     <img loading="lazy" class="img-fluid mb-3" style="height:100px;" src="${marker.foto}"><br>
                                     <a href="${marker.detail}" target="_blank" class="btn btn-round " style="margin-top:20px; margin-bottom:10px; padding:5px 10px;">Detail</a>
                                     <a href="https://maps.google.com/?saddr=My+Location&daddr=${marker.latitude},${marker.longitude}" target="_blank" class="btn btn-orange btn-round " style="margin-top:20px; margin-bottom:10px; padding:5px 10px;">Rute</a>
@@ -218,7 +218,7 @@
                  content = `
                             <div class="popupContent"  style="width:200px;">
                                 <div class="text-center justify-content-center text-black">
-                                    <h1>${marker.nama}</h1>
+                                    <h3>${marker.nama}</h3>
                                     <img loading="lazy" class="img-fluid mb-3" style="height:100px;" src="${marker.foto}"><br>
                                      <div style="margin-top:10px;">
                                         <strong>Harga : </strong>${marker.harga}
@@ -233,7 +233,7 @@
                      `
         <div class="popupContent" style="width:200px;">
             <div class="text-center justify-content-center text-black">
-                <h1>${marker.nama}</h1>
+                <h3>${marker.nama}</h3>
                 <img loading="lazy" class="img-fluid mb-3" style="height:100px;" src="${marker.foto}"><br>
                 <div style="margin-top:10px;">
                                         <strong>Daftar Produk </strong>

@@ -15,9 +15,7 @@
     <meta name="web_author" content="mix-dev">
     <meta name="language" content="Indonesian">
     <!-- CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQvI0cmNUe4m6H2qXrJ/zA5Df3JOWa9b9QPrzFNm9lBLvt2Wr9lKyp" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Import Icon -->
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/css/ionicons.min.css">
 
@@ -26,13 +24,80 @@
 
     {{-- add css  --}}
     @stack('style')
+    <style>
+        .underline-half {
+            position: relative;
+            display: inline-block;
+        }
+
+        .underline-half::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 120%;
+            /* Atur lebar garis bawah di sini, 50% dari panjang keseluruhan */
+            height: 3px;
+            /* Atur ketebalan garis bawah di sini */
+            background-color: #F9690E;
+            /* Atur warna garis bawah di sini */
+        }
+
+        .underline-center {
+            position: relative;
+            display: inline-block;
+            text-align: center;
+            /* Pusatkan teks */
+        }
+
+        .underline-center::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            /* Pusatkan garis bawah */
+            width: 50%;
+            /* Sesuaikan lebar sesuai keinginan Anda */
+            height: 5px;
+            background-color: #F9690E;
+        }
+
+        .zoom-hover {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .zoom-hover img {
+            transition: transform 0.3s;
+            /* Transisi efek zoom */
+        }
+
+        .zoom-hover:hover img {
+            transform: scale(1.1);
+            /* Efek zoom saat dihover */
+        }
+
+        .gradient-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80%;
+            /* Tinggi gradient */
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.582), rgba(0, 0, 0, 0));
+            pointer-events: none;
+        }
+    </style>
 
 </head>
 
-<body>
+<body style="background: white;">
     @include('layouts.front_component.navbar')
     @include('layouts.front_component.sidebar')
-    <section class="sidebar-overlay"></section>@yield('content') @include('layouts.front_component.footer')
+    <section class="sidebar-overlay"></section>
+    @yield('content')
+    @include('layouts.front_component.footer')
     <script type="text/javascript" src="{{ asset('frontend') }}/js/jquery.js"></script>
     <script type="text/javascript" src="{{ asset('frontend') }}/js/main.js"></script>
     <script type="text/javascript" src="{{ asset('frontend') }}/js/swipe.js"></script>

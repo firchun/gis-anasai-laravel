@@ -24,36 +24,45 @@
 
     @include('pages.landing_page.component.maps')
 
-
-    <!-- Section Explore -->
-
-    <section class="section-explore" style="height: 300px;">
-        <div class="texture-handler-top"></div>
-        <div class="overlay">
-            <div class="caption">
-                <h1 style="font-size: 48px;  font-family:'Lobster';">Infromation of Anasai</h1>
-            </div>
-        </div>
-        <div class="texture-handler-bottom"></div>
-    </section>
+    @include('pages.landing_page.component.feature')
 
     @include('pages.landing_page.component.desa')
-    <section class="section-explore" style="height: 300px;">
-        <div class="texture-handler-top"></div>
-        <div class="overlay">
-            <div class="caption">
-                <h1 style="font-size: 48px;  font-family:'Lobster';">Destination of Anasai</h1>
+
+    <div class="container my-3 text-center "
+        style="background-image: url('{{ asset('frontend/img/header4.jpg') }}'); background-size: cover;  border-radius:20px; padding-top:50px; padding-bottom:50px;">
+        <div class="offset-lg-3 col-lg-9 col-sm-12 subscribe-form">
+            <div class="container subscribe-form-content">
+                <h4 class="text-left text-white">Anda dapat mencari tempat wisata dan event di sini.</h4>
+                <form action="" method="GET">
+                    <div class="row">
+                        <div class="col-lg-9 col-sm-12 form-element">
+                            <input placeholder="Cari di sini.." type="email" class="form-control" name="keywords"
+                                autocomplete="off">
+                        </div>
+                        <div class="col-lg-3 col-sm-12 form-element">
+                            <button class="btn btn-block btn-primary py-2" type="submit">
+                                Cari
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
-        <div class="texture-handler-bottom"></div>
-    </section>
+    </div>
+
     @include('pages.landing_page.component.wisata')
     @include('pages.landing_page.component.kegiatan')
+
+
     <section class="section-explore" style="height: 300px;">
         <div class="texture-handler-top"></div>
-        <div class="overlay">
-            <div class="caption">
-                <h1 style="font-size: 48px; font-family:'Lobster';">Merchandise of Anasai</h1>
+        <div class="overlay" style=" background: rgba(0, 0, 0, 0.6);">
+            <div class="container">
+
+                <div class="caption text-left">
+                    <h1 style="font-size: 60px; font-family:'Lobster';">Merchandise of Sinai</h1>
+                    <p>Temukan marchandise khas dari kawasan sinai di sini...</p>
+                </div>
             </div>
         </div>
         <div class="texture-handler-bottom"></div>

@@ -19,7 +19,7 @@ class FrontController extends Controller
         $data = [
             'title' => '- Homepage',
             'kegiatan' => Kegiatan::latest()->limit(4)->get(),
-            'produk_lapak' => ProdukLapak::latest()->limit(4)->get(),
+            'lapak' => Lapak::latest()->limit(4)->get(),
             'wisata' => Wisata::latest()->limit(4)->get(),
             'desa' => Desa::latest()->limit(4)->get(),
         ];
@@ -96,8 +96,8 @@ class FrontController extends Controller
     public function shop()
     {
         $data = [
-            'title' => '- shop',
-            'toko' => Lapak::latest()->paginate(20),
+            'title' => 'Lapak',
+            'lapak' => Lapak::latest()->paginate(20),
         ];
         return view('pages.landing_page.shop', $data);
     }

@@ -31,7 +31,7 @@ class AkunController extends Controller
     {
         $data = [
             'title' => 'Data Akun Member',
-            'user' => Member::where('role', 'member')->get(),
+            'user' => User::where('role', 'member')->get(),
         ];
         return view('pages.akun.member.index', $data);
     }

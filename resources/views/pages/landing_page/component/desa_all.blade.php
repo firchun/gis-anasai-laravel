@@ -2,28 +2,33 @@
 
   <section class="section section-discover" id="discover">
       <div class="section-head">
+          <h3 class="section-title">Desa di Kawasan Sinai</h3>
+          <p class="section-subtitle">Adalah desa-desa yang berapa pada kawasan sinai - Papua Selatan </p>
           <div class="section-line"></div>
-          <h3 class="section-title">Desa di Kawasan Anasai</h3>
-          {{-- <p class="section-subtitle">Adalah sebuah warisan indahnya alam dan budaya yang masih terjaga di Anasai - Papua
-              Selatan yang
-              dapat anda jelajahi</p> --}}
       </div>
-      <div class="section-discover-body slides">
-          @foreach ($desa as $item)
-              <div class="col">
-                  <a href="{{ route('village.detail', $item->id) }}">
-                      <img src="{{ $item->foto ? Storage::url($item->foto) : asset('img/no-image.jpg') }}"
-                          alt="Destination">
-                      <div class="caption">
-                          <p>{{ $item->nama_desa }}</p>
-                          <div class="line"></div>
-                          <div class="caption-text">
-                              <p>{{ $item->keterangan ?? 'Keterangan tidak tersedia' }}</p>
-                          </div>
+      <div class=" slides my-4">
+          <div class="section-discover-body container">
+              <div class="row justify-content-center align-items-center">
+                  @foreach ($desa as $item)
+                      <div class="col-lg-4">
+                          <a href="{{ route('village.detail', $item->id) }}" class="zoom-hover">
+                              <div class="card text-white">
+                                  <div class="position-relative">
+                                      <img src="{{ $item->foto ? Storage::url($item->foto) : asset('img/no-image.jpg') }}"
+                                          class="card-img" alt="...">
+                                      <div class="card-img-overlay d-flex flex-column justify-content-end text-center">
+                                          <h5 class="card-title mb-0 font-weight-bold">Desa {{ $item->nama_desa }}</h5>
+                                          {{-- <p class="card-text">
+                                          <mark>{{ $item->keterangan ?? 'Keterangan tidak tersedia' }}</mark>
+                                      </p> --}}
+                                      </div>
+                                  </div>
+                              </div>
+                          </a>
                       </div>
-                  </a>
+                  @endforeach
               </div>
-          @endforeach
+          </div>
       </div>
 
   </section>

@@ -8,4 +8,5 @@
             <span class="ion-record"></span>
         </div>
     </div>
+    <div class="texture-handler-bottom"></div>
 </section>

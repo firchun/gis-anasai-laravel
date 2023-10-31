@@ -7,7 +7,7 @@
          <p class="section-subtitle">Dapatkan oleh-oleh khas dari Sinai yang sangat menarik untuk anda bawa...</p>
      </div>
      <div class="container ">
-         <div class="row justify-content-center align-items-center">
+         <div class="row justify-content-center ">
              @if ($lapak != null)
                  @foreach ($lapak as $item)
                      <div class="col-lg-4 mb-2">
@@ -16,7 +16,7 @@
                              <a href="{{ route('shop.detail', $item->id) }}" class="zoom-hover">
                                  <div class="zoom-hover">
                                      <img src="{{ $item->foto ? Storage::url($item->foto) : asset('img/no-image.jpg') }}"
-                                         class="card-img" alt="...">
+                                         class="card-img" alt="..." style="height: 300px; object-fit:cover;">
                                  </div>
                              </a>
                              <div class="p-3 text-center">
@@ -56,20 +56,19 @@
                          </div>
                      </div>
                  @endforeach
+                 <div class="text-center">
+                     <a href="{{ route('shop') }}" class="btn btn-orange btn-round mt-3 py-2">Semua
+                         Lapak..</a>
+                 </div>
+             @else
+                 <div class="col-12">
+                     <div class="mt-4">
+                         <center>
+                             <h3>Belum ada produk dari toko ini..</h3>
+                         </center>
+                     </div>
+                 </div>
+             @endif
          </div>
-         <div class="text-center">
-
-             <a href="{{ route('shop') }}" class="btn btn-orange btn-round mt-3 py-2">Semua
-                 Lapak..</a>
-         </div>
-     @else
-         <div class="col-12">
-             <div class="mt-4">
-                 <center>
-                     <h3>Belum ada produk dari toko ini..</h3>
-                 </center>
-             </div>
-         </div>
-         @endif
      </div>
  </section>

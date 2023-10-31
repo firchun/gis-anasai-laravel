@@ -18,10 +18,10 @@ class FrontController extends Controller
     {
         $data = [
             'title' => '- Homepage',
-            'kegiatan' => Kegiatan::latest()->limit(4)->get(),
-            'lapak' => Lapak::latest()->limit(4)->get(),
-            'wisata' => Wisata::latest()->limit(4)->get(),
-            'desa' => Desa::latest()->limit(4)->get(),
+            'kegiatan' => Kegiatan::latest()->limit(3)->get(),
+            'lapak' => Lapak::latest()->limit(3)->get(),
+            'wisata' => Wisata::latest()->limit(3)->get(),
+            'desa' => Desa::latest()->limit(3)->get(),
         ];
         return view('pages.landing_page.index', $data);
     }

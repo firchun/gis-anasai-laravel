@@ -9,7 +9,7 @@
             dapat anda jelajahi</p> --}}
       </div>
       <div class="container my-5">
-          <div class="row justify-content-center align-items-center">
+          <div class="row justify-content-center ">
               @foreach ($lapak as $item)
                   <div class="col-lg-4 mb-2">
                       <div
@@ -17,7 +17,7 @@
                           <a href="{{ route('shop.detail', $item->id) }}" class="zoom-hover">
                               <div class="zoom-hover">
                                   <img src="{{ $item->foto ? Storage::url($item->foto) : asset('img/no-image.jpg') }}"
-                                      class="card-img" alt="...">
+                                      class="card-img" alt="..." style="height: 300px; object-fit:cover;">
                               </div>
                           </a>
                           <div class="p-3 text-center">

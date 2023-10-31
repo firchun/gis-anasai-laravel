@@ -1,6 +1,6 @@
   <!-- Section Discover -->
 
-  <section class="section section-discover my-4 mx-auto" id="discover" style="background:#f5f7fc;">
+  <section class="section my-4 mx-auto" id="discover" style="background:#f5f7fc;">
       <div class="section-head">
           <div class="section-line"></div>
           <h3 class="section-title">Desa di Kawasan Sinai</h3>

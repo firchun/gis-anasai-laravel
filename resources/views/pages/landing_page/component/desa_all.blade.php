@@ -1,6 +1,6 @@
   <!-- Section Discover -->
 
-  <section class="section section-discover" id="discover">
+  <section class="section" id="discover">
       <div class="section-head">
           <h3 class="section-title">Desa di Kawasan Sinai</h3>
           <p class="section-subtitle">Adalah desa-desa yang berapa pada kawasan sinai - Papua Selatan </p>

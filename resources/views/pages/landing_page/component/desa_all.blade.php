@@ -10,7 +10,7 @@
           <div class="section-discover-body container">
               <div class="row justify-content-center align-items-center">
                   @foreach ($desa as $item)
-                      <div class="col-lg-4">
+                      <div class="col-lg-4 mb-3">
                           <a href="{{ route('village.detail', $item->id) }}" class="zoom-hover">
                               <div class="card text-white">
                                   <div class="position-relative">

@@ -3,7 +3,7 @@
  <section class="section  " style="padding-bottom: 50px;">
      <div class="section-head">
          <div class="section-line"></div>
-         <h3 class="section-title">REKOMENDASI OLEH-OLEH KHAS SINAI</h3>
+         <h3 class="section-title">REKOMENDASI OLEH-OLEH KHAS PADA LAPAK DI SINAI</h3>
          <p class="section-subtitle">Dapatkan oleh-oleh khas dari Sinai yang sangat menarik untuk anda bawa...</p>
      </div>
      <div class="container ">

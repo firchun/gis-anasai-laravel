@@ -59,7 +59,22 @@
                                                 src="{{ $item->foto ? Storage::url($item->foto) : asset('img/no-image.jpg') }}"
                                                 class="img-fluid rounded" style="height: 80px;"></td>
                                         <td><strong>Lapak
-                                                {{ $item->nama_lapak }}</strong>
+                                                {{ $item->nama_lapak }}</strong><br>
+                                            @php
+                                                $rating = App\Models\reviewRating::where('identity', $item->id)->where('type', 'lapak');
+                                                $review = $rating->count();
+                                                $average_rating = $rating->avg('star_rating');
+                                                $total_rating = round($average_rating);
+                                            @endphp
+                                            @if ($total_rating != 0)
+                                                @for ($i = 1; $i <= $total_rating; $i++)
+                                                    <i class="fa fa-star text-warning "></i>
+                                                @endfor
+                                            @else
+                                                @for ($i = 1; $i <= 5; $i++)
+                                                    <i class="fa fa-star text-muted "></i>
+                                                @endfor
+                                            @endif
                                         </td>
                                         <td>
                                             <strong>{{ $item->user->name }}</strong><br>
@@ -70,7 +85,12 @@
                                                 {{ $item->user->phone }}</a><br>
                                         </td>
 
-                                        <td style="width: 200px;">
+                                        <td style="width: 250px;">
+                                            <a href="#" data-toggle="modal" data-target="#ulasan-{{ $item->id }}"
+                                                class="btn btn-info position-relative"><i class="fa fa-comments"></i>
+                                                <span
+                                                    class="badge badge-danger position-absolute top-0 end-0">{{ $review }}</span>
+                                            </a>
                                             <a href="{{ route('lapak.produk', $item->id) }}" class="btn btn-primary "><i
                                                     class="fa fa-eye"></i> Produk
                                             </a>
@@ -92,6 +112,9 @@
             </div>
         </div>
     </div>
+    @foreach ($lapak as $item)
+        @include('pages.lapak.components.modal_ulasan')
+    @endforeach
     @include('pages.lapak.components.modal_create')
 @endsection
 @push('js')

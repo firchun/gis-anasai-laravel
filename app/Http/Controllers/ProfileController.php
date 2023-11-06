@@ -45,6 +45,7 @@ class ProfileController extends Controller
             $user = User::findOrFail(Auth::user()->id);
             $user->name = $request->input('name');
             $user->email = $request->input('email');
+            $user->phone = $request->input('phone');
 
             if (!is_null($request->input('current_password'))) {
                 if (Hash::check($request->input('current_password'), $user->password)) {
@@ -53,7 +54,6 @@ class ProfileController extends Controller
                     throw new Exception('Password saat ini tidak benar.');
                 }
             }
-
             $user->save();
 
             return back()->withSuccess('Profil berhasil diperbarui.');

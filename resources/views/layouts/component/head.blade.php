@@ -2,13 +2,13 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="SIPETA">
-    <meta name="author" content="SIPETA">
+    <meta name="description" content="Sinai">
+    <meta name="author" content="Sinai">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ $title }} | {{ config('app.name', 'SIPETA') }}</title>
+    <title>{{ $title }} | {{ config('app.name', 'Sinai') }}</title>
 
     <!-- Fonts -->
     <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet">

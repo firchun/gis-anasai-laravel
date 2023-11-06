@@ -11,7 +11,7 @@
               <div class="row justify-content-center align-items-center">
                   @foreach ($desa as $item)
                       <div class="col-lg-4 mb-3">
-                          <a href="{{ route('village.detail', $item->id) }}" class="zoom-hover">
+                          <a href="{{ route('village.detail', $item->slug) }}" class="zoom-hover">
                               <div class="card text-white">
                                   <div class="position-relative">
                                       <img src="{{ $item->foto ? Storage::url($item->foto) : asset('img/no-image.jpg') }}"
@@ -27,6 +27,9 @@
                           </a>
                       </div>
                   @endforeach
+              </div>
+              <div class="mt-4 text-center">
+                  {{ $desa->links('vendor.pagination.bootstrap-5') }}
               </div>
           </div>
       </div>

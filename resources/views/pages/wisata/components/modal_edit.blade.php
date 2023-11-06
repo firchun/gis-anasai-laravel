@@ -9,39 +9,27 @@
                 </button>
             </div>
 
-            <form action="{{ route('desa.update', $item->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('wisata.update', $item->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="modal-body">
                     <div class="form-group ">
-                        <label class="form-control-label" for="foto">Foto Desa<span
+                        <label class="form-control-label" for="foto">Foto Wisata<span
                                 class="small text-danger">*</span></label>
                         <input type="file" class="form-control" name="foto">
                     </div>
                     <div class="form-group ">
-                        <label class="form-control-label" for="nama_desa">Nama Desa<span
+                        <label class="form-control-label" for="nama_wisata">Nama Wisata<span
                                 class="small text-danger">*</span></label>
-                        <input type="text" class="form-control" name="nama_desa" placeholder="Nama Desa"
-                            value="{{ $item->nama_desa }}">
+                        <input type="text" class="form-control" name="nama_wisata" placeholder="Nama wisata"
+                            value="{{ $item->nama_wisata }}">
                     </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="form-group ">
-                                <label class="form-control-label" for="jumlah_kk">Jumlah KK<span
-                                        class="small text-danger">*</span></label>
-                                <input type="number" class="form-control" name="jumlah_kk" placeholder="0"
-                                    value="{{ $item->jumlah_kk }}">
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-group ">
-                                <label class="form-control-label" for="jumlah_jiwa">Jumlah Jiwa<span
-                                        class="small text-danger">*</span></label>
-                                <input type="number" class="form-control" name="jumlah_jiwa" placeholder="0"
-                                    value="{{ $item->jumlah_jiwa }}">
-                            </div>
-                        </div>
+                    <div class="form-group ">
+                        <label class="form-control-label" for="harga">Harga Wisata<span
+                                class="small text-danger">*</span></label>
+                        <input type="number" class="form-control" name="harga" value="{{ $item->harga }}">
                     </div>
+
                     <div class="form-group ">
                         <label class="form-control-label" for="keterangan">Keterangan Tambahan<span
                                 class="small text-danger">*</span></label>

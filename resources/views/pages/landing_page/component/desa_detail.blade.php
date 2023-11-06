@@ -47,11 +47,11 @@
             <div class="col-lg-4 mb-4">
                 <h5 class="text-left font-weight-bold underline-half mb-4">Detail Desa :</h5>
                 <div id="map" style="height: 300px; width:100%;"></div>
-                <a href="https://maps.google.com/?saddr=My+Location&daddr=${marker.latitude},${marker.longitude}"
+                <a href="https://maps.google.com/?saddr=My+Location&daddr={{ $desa->latitude }},{{ $desa->longitude }}"
                     target="_blank" class="btn btn-orange btn-round "
                     style="margin-top:20px; margin-bottom:10px; padding:5px 10px;">Rute menuju desa</a>
             </div>
-            <div class="col-lg-8">
+            <div class="col-lg-8" style="min-height: 300px;">
                 <h5 class="text-left font-weight-bold underline-half mb-4">Monografi Desa :</h5>
                 <div class="row">
                     <table class="table table-bordered mb-3" style="width: 100%; border:1px;">

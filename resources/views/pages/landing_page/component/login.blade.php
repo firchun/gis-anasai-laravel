@@ -22,7 +22,9 @@
             <div class="form-input">
                 <button type="submit" class="btn btn-login">Log In</button>
             </div>
-            <a href="{{ route('register') }}" class="text-center">Don't have account ? Register now</a>
+            <a href="{{ route('register') }}" class="text-center" style="font-size: unset;">Don't have account ?
+                Register now</a>
+            <a href="{{ route('password.request') }}" class="text-center" style="font-size: unset;">Forgot Password?</a>
         </div>
     </div>
 </form>

@@ -34,7 +34,10 @@
     <div class="row">
 
         <div class="col-lg-12 ">
-            <div class="my-2">
+            <div class="form-inline my-2">
+                <a href="{{ route('lapak') }}" class="btn btn-secondary mx-2"><i class="fa fa-arrow-left"></i>
+                    Kembali
+                </a>
                 <a href="#" data-toggle="modal" data-target="#create" class="btn btn-primary"><i
                         class="fa fa-plus"></i>
                     Tambah Produk
@@ -113,6 +116,7 @@
                                         @include('pages.lapak.produk.components.modal_stok_add')
                                     </td>
                                     <td style="width: 200px;">
+
                                         <a href="#" data-toggle="modal" data-target="#edit-{{ $item->id }}"
                                             class="btn btn-warning"><i class="fa fa-edit"></i>
                                         </a>
@@ -131,5 +135,6 @@
             </div>
         </div>
     </div>
+
     @include('pages.lapak.produk.components.modal_create')
 @endsection

@@ -9,7 +9,8 @@
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-            <div class="modal-body">Select "Delete" for delete this data <strong>{{ $item->nama_agama }}</strong>.</div>
+            <div class="modal-body">Select "Delete" for delete this data <strong>{{ $item->nama_wisata }}</strong>.
+            </div>
             <div class="modal-footer">
                 <button class="btn btn-link" type="button" data-dismiss="modal">{{ __('Cancel') }}</button>
                 <form method="POST" action="{{ route('wisata.destroy', $item->id) }}" class="d-inline-block">

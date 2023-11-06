@@ -21,56 +21,61 @@ class DesaController extends Controller
     }
     public function store(Request $request)
     {
-        $request->validate([
-            'nama_desa' => ['required'],
-            'jumlah_kk' => ['required'],
-            'jumlah_jiwa' => ['required'],
-            'latitude' => ['required'],
-            'longitude' => ['required'],
-            'foto' => ['nullable', 'mimes:jpeg,png,jpg,gif'],
-            'titles.*' => ['required'],
-            'descriptions.*' => ['required'],
-        ]);
-        $desa = new Desa();
-        if ($request->hasFile('foto')) {
-            $filename = Str::random(32) . '.' . $request->file('foto')->getClientOriginalExtension();
-            $file_path = $request->file('foto')->storeAs('public/fotos', $filename);
-        }
-        $desa->foto = isset($file_path) ? $file_path : '';
-        $desa->nama_desa = $request->nama_desa;
-        $desa->jumlah_kk = $request->jumlah_kk;
-        $desa->jumlah_jiwa = $request->jumlah_jiwa;
-        $desa->latitude = $request->latitude;
-        $desa->longitude = $request->longitude;
-        $desa->keterangan = $request->keterangan;
-
-        if ($desa->save()) {
-
-            // Buat dan simpan data JSON pada model DesaDetail
-            $desaDetail = new DesaDetail();
-            $desaDetail->id_desa = $desa->id; // Pastikan model DesaDetail memiliki relasi ke model Desa
-            $jsonData = [];
-
-            foreach ($request->title as $key => $title) {
-                // Buat data JSON dari request
-                $itemData = [
-                    'title' => $title, // Menggunakan $title dari form
-                    'description' => $request->description[$key], // Menggunakan description sesuai dengan indeksnya
-                ];
-
-                // Tambahkan itemData ke array jsonData
-                $jsonData[] = $itemData;
+        try {
+            $request->validate([
+                'nama_desa' => ['required'],
+                'jumlah_kk' => ['required'],
+                'jumlah_jiwa' => ['required'],
+                'latitude' => ['required'],
+                'longitude' => ['required'],
+                'foto' => ['nullable', 'mimes:jpeg,png,jpg,gif'],
+                'titles.*' => ['required'],
+                'descriptions.*' => ['required'],
+            ]);
+            $desa = new Desa();
+            if ($request->hasFile('foto')) {
+                $filename = Str::random(32) . '.' . $request->file('foto')->getClientOriginalExtension();
+                $file_path = $request->file('foto')->storeAs('public/fotos', $filename);
             }
+            $desa->foto = isset($file_path) ? $file_path : '';
+            $desa->nama_desa = $request->nama_desa;
+            $desa->slug = Str::slug($request->nama_desa);
+            $desa->jumlah_kk = $request->jumlah_kk;
+            $desa->jumlah_jiwa = $request->jumlah_jiwa;
+            $desa->latitude = $request->latitude;
+            $desa->longitude = $request->longitude;
+            $desa->keterangan = $request->keterangan;
 
-            // Setelah iterasi selesai, ubah $jsonData menjadi JSON dan simpan
-            $desaDetail->data = json_encode($jsonData);
-            $desaDetail->save();
+            if ($desa->save()) {
+
+                // Buat dan simpan data JSON pada model DesaDetail
+                $desaDetail = new DesaDetail();
+                $desaDetail->id_desa = $desa->id; // Pastikan model DesaDetail memiliki relasi ke model Desa
+                $jsonData = [];
+
+                foreach ($request->title as $key => $title) {
+                    // Buat data JSON dari request
+                    $itemData = [
+                        'title' => $title, // Menggunakan $title dari form
+                        'description' => $request->description[$key], // Menggunakan description sesuai dengan indeksnya
+                    ];
+
+                    // Tambahkan itemData ke array jsonData
+                    $jsonData[] = $itemData;
+                }
+
+                // Setelah iterasi selesai, ubah $jsonData menjadi JSON dan simpan
+                $desaDetail->data = json_encode($jsonData);
+                $desaDetail->save();
 
 
 
-            return redirect()->back()->with('success', 'Berhasil menambahkan desa');
-        } else {
-            return redirect()->back()->with('danger', 'Gagal menambahkan desa');
+                return redirect()->back()->with('success', 'Berhasil menambahkan desa');
+            } else {
+                return redirect()->back()->with('danger', 'Gagal menambahkan desa');
+            }
+        } catch (\Exception $e) {
+            return redirect()->back()->with('danger', 'Terjadi kesalahan : ' . $e->getMessage());
         }
     }
 
@@ -84,36 +89,40 @@ class DesaController extends Controller
      */
     public function update(Request $request,  $id)
     {
+        try {
+            $request->validate([
+                'nama_desa' => ['required'],
+                'jumlah_kk' => ['required'],
+                'jumlah_jiwa' => ['required'],
+                'latitude' => ['required'],
+                'longitude' => ['required'],
+                'foto' => ['nullable', 'mimes:jpeg,png,jpg,gif'],
+            ]);
+            $desa = Desa::findOrFail($id);
+            if ($request->hasFile('foto')) {
+                if ($desa->foto != '') {
+                    Storage::delete($desa->foto);
+                }
 
-        $request->validate([
-            'nama_desa' => ['required'],
-            'jumlah_kk' => ['required'],
-            'jumlah_jiwa' => ['required'],
-            'latitude' => ['required'],
-            'longitude' => ['required'],
-            'foto' => ['nullable', 'mimes:jpeg,png,jpg,gif'],
-        ]);
-        $desa = Desa::findOrFail($id);
-        if ($request->hasFile('foto')) {
-            if ($desa->foto != '') {
-                Storage::delete($desa->foto);
+                $filename = Str::random(32) . '.' . $request->file('foto')->getClientOriginalExtension();
+                $file_path = $request->file('foto')->storeAs('public/fotos', $filename);
             }
+            $desa->foto = isset($file_path) ? $file_path : $desa->foto;
+            $desa->slug = Str::slug($request->nama_desa);
+            $desa->nama_desa = $request->nama_desa;
+            $desa->jumlah_kk = $request->jumlah_kk;
+            $desa->jumlah_jiwa = $request->jumlah_jiwa;
+            $desa->latitude = $request->latitude;
+            $desa->longitude = $request->longitude;
+            $desa->keterangan = $request->keterangan;
 
-            $filename = Str::random(32) . '.' . $request->file('foto')->getClientOriginalExtension();
-            $file_path = $request->file('foto')->storeAs('public/fotos', $filename);
-        }
-        $desa->foto = isset($file_path) ? $file_path : $desa->foto;
-        $desa->nama_desa = $request->nama_desa;
-        $desa->jumlah_kk = $request->jumlah_kk;
-        $desa->jumlah_jiwa = $request->jumlah_jiwa;
-        $desa->latitude = $request->latitude;
-        $desa->longitude = $request->longitude;
-        $desa->keterangan = $request->keterangan;
-
-        if ($desa->save()) {
-            return redirect()->back()->with('success', 'Berhasil mengubah data desa');
-        } else {
-            return redirect()->back()->with('danger', 'Gagal mengubah data desa');
+            if ($desa->save()) {
+                return redirect()->back()->with('success', 'Berhasil mengubah data desa');
+            } else {
+                return redirect()->back()->with('danger', 'Gagal mengubah data desa');
+            }
+        } catch (\Exception $e) {
+            return redirect()->back()->with('danger', 'Terjadi kesalahan : ' . $e->getMessage());
         }
     }
 
@@ -138,7 +147,7 @@ class DesaController extends Controller
         } catch (QueryException $e) {
             return back()->with(['danger' => 'Tidak dapat menghapus data karena ada keterkaitan data lain.']);
         } catch (\Exception $e) {
-            return back()->with(['danger' => 'Terjadi kesalahan saat menghapus data.']);
+            return back()->with(['danger' => 'Terjadi kesalahan saat menghapus data, ', $e->getMessage()]);
         }
     }
 }

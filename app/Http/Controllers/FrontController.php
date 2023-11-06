@@ -17,7 +17,7 @@ class FrontController extends Controller
     public function index()
     {
         $data = [
-            'title' => '- Homepage',
+            'title' => 'Homepage',
             'kegiatan' => Kegiatan::latest()->limit(3)->get(),
             'lapak' => Lapak::latest()->limit(3)->get(),
             'wisata' => Wisata::latest()->limit(3)->get(),
@@ -28,14 +28,14 @@ class FrontController extends Controller
     public function desa()
     {
         $data = [
-            'title' => '- Desa Pada Anasai',
-            'desa' => Desa::all(),
+            'title' => 'Desa Pada Sinai',
+            'desa' => Desa::latest()->paginate(20),
         ];
         return view('pages.landing_page.desa', $data);
     }
-    public function desa_detail($id)
+    public function desa_detail($slug)
     {
-        $desa = Desa::findOrFail($id);
+        $desa = Desa::where('slug', $slug)->firstOrFail();
         $data = [
             'title' => 'Desa : ' . $desa->nama_desa,
             'desa' => $desa,
@@ -45,14 +45,14 @@ class FrontController extends Controller
     public function event()
     {
         $data = [
-            'title' => '- Event Pada Anasai',
+            'title' => 'Event Pada Sinai',
             'kegiatan' => Kegiatan::latest()->paginate(10),
         ];
         return view('pages.landing_page.event', $data);
     }
-    public function event_detail($id)
+    public function event_detail($slug)
     {
-        $kegiatan = Kegiatan::findOrFail($id);
+        $kegiatan = Kegiatan::where('slug', $slug)->firstOrFail();
         $data = [
             'title' => 'Event : ' . $kegiatan->nama_kegiatan,
             'kegiatan' => $kegiatan,
@@ -62,14 +62,14 @@ class FrontController extends Controller
     public function wisata()
     {
         $data = [
-            'title' => '- wisata Pada Anasai',
+            'title' => 'wisata Pada Sinai',
             'wisata' => Wisata::latest()->paginate(10),
         ];
         return view('pages.landing_page.wisata', $data);
     }
-    public function wisata_detail($id)
+    public function wisata_detail($slug)
     {
-        $wisata = Wisata::findOrFail($id);
+        $wisata = Wisata::where('slug', $slug)->firstOrFail();
         $data = [
             'title' => 'wisata : ' . $wisata->nama_wisata,
             'wisata' => $wisata,
@@ -79,16 +79,16 @@ class FrontController extends Controller
     public function merchandise()
     {
         $data = [
-            'title' => '- Merchandise',
+            'title' => 'Produk',
             'produk_lapak' => ProdukLapak::latest()->paginate(20),
         ];
         return view('pages.landing_page.merchandise', $data);
     }
-    public function merchandise_detail($id)
+    public function merchandise_detail($slug)
     {
-        $produk_lapak = ProdukLapak::findOrFail($id);
+        $produk_lapak = ProdukLapak::where('slug', $slug)->firstOrFail();
         $data = [
-            'title' => 'Merchandise : ' . $produk_lapak->nama_produk,
+            'title' => 'Produk : ' . $produk_lapak->nama_produk,
             'produk_lapak' => $produk_lapak,
         ];
         return view('pages.landing_page.merchandise_detail', $data);
@@ -101,15 +101,28 @@ class FrontController extends Controller
         ];
         return view('pages.landing_page.shop', $data);
     }
-    public function shop_detail($id)
+    public function shop_detail($slug)
     {
-        $toko = Lapak::findOrFail($id);
-        $produk_toko = ProdukLapak::where('id_lapak', $id)->get();
+        $toko = Lapak::where('slug', $slug)->firstOrFail();
+        $produk_toko = ProdukLapak::where('id_lapak', $toko->id)->get();
         $data = [
-            'title' => 'Toko : ' . $toko->nama_lapak,
+            'title' => 'Lapak : ' . $toko->nama_lapak,
             'toko' => $toko,
             'produk_toko' => $produk_toko,
         ];
         return view('pages.landing_page.shop_detail', $data);
+    }
+    public function search(Request $request)
+    {
+        $keywords = $request->keywords;
+
+        $wisata = Wisata::where('nama_wisata', 'LIKE', '%' . $keywords . '%')->paginate(10);
+        $kegiatan = Kegiatan::where('nama_kegiatan', 'LIKE', '%' . $keywords . '%')->paginate(10);
+        $data = [
+            'title' => 'Hasil pencarian',
+            'wisata' => $wisata,
+            'kegiatan' => $kegiatan,
+        ];
+        return view('pages.landing_page.search', $data)->with('keywords', $keywords);
     }
 }

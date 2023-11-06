@@ -20,31 +20,36 @@ class KegiatanController extends Controller
     }
     public function store(Request $request)
     {
-        $request->validate([
-            'nama_kegiatan' => ['required'],
-            'tanggal_mulai' => ['required'],
-            'tanggal_selesai' => ['required'],
-            'latitude' => ['required'],
-            'longitude' => ['required'],
-            'foto' => ['nullable', 'mimes:jpeg,png,jpg,gif'],
-        ]);
-        $kegiatan = new Kegiatan();
-        if ($request->hasFile('foto')) {
-            $filename = Str::random(32) . '.' . $request->file('foto')->getClientOriginalExtension();
-            $file_path = $request->file('foto')->storeAs('public/fotos', $filename);
-        }
-        $kegiatan->foto = isset($file_path) ? $file_path : '';
-        $kegiatan->nama_kegiatan = $request->nama_kegiatan;
-        $kegiatan->tanggal_mulai = $request->tanggal_mulai;
-        $kegiatan->tanggal_selesai = $request->tanggal_selesai;
-        $kegiatan->latitude = $request->latitude;
-        $kegiatan->longitude = $request->longitude;
-        $kegiatan->keterangan = $request->keterangan;
+        try {
+            $request->validate([
+                'nama_kegiatan' => ['required'],
+                'tanggal_mulai' => ['required'],
+                'tanggal_selesai' => ['required'],
+                'latitude' => ['required'],
+                'longitude' => ['required'],
+                'foto' => ['nullable', 'mimes:jpeg,png,jpg,gif'],
+            ]);
+            $kegiatan = new Kegiatan();
+            if ($request->hasFile('foto')) {
+                $filename = Str::random(32) . '.' . $request->file('foto')->getClientOriginalExtension();
+                $file_path = $request->file('foto')->storeAs('public/fotos', $filename);
+            }
+            $kegiatan->foto = isset($file_path) ? $file_path : '';
+            $kegiatan->nama_kegiatan = $request->nama_kegiatan;
+            $kegiatan->slug =  Str::slug($request->nama_kegiatan);
+            $kegiatan->tanggal_mulai = $request->tanggal_mulai;
+            $kegiatan->tanggal_selesai = $request->tanggal_selesai;
+            $kegiatan->latitude = $request->latitude;
+            $kegiatan->longitude = $request->longitude;
+            $kegiatan->keterangan = $request->keterangan;
 
-        if ($kegiatan->save()) {
-            return redirect()->back()->with('success', 'Berhasil menambahkan desa');
-        } else {
-            return redirect()->back()->with('danger', 'Gagal menambahkan desa');
+            if ($kegiatan->save()) {
+                return redirect()->back()->with('success', 'Berhasil menambahkan desa');
+            } else {
+                return redirect()->back()->with('danger', 'Gagal menambahkan desa');
+            }
+        } catch (\Exception $e) {
+            return redirect()->back()->with('danger', 'Terjadi kesalahan : ' . $e->getMessage());
         }
     }
 
@@ -58,36 +63,40 @@ class KegiatanController extends Controller
      */
     public function update(Request $request,  $id)
     {
+        try {
+            $request->validate([
+                'nama_kegiatan' => ['required'],
+                'tanggal_mulai' => ['required'],
+                'tanggal_selesai' => ['required'],
+                'latitude' => ['required'],
+                'longitude' => ['required'],
+                'foto' => ['nullable', 'mimes:jpeg,png,jpg,gif'],
+            ]);
+            $kegiatan = Kegiatan::findOrFail($id);
+            if ($request->hasFile('foto')) {
+                if ($kegiatan->foto != '') {
+                    Storage::delete($kegiatan->foto);
+                }
 
-        $request->validate([
-            'nama_kegiatan' => ['required'],
-            'tanggal_mulai' => ['required'],
-            'tanggal_selesai' => ['required'],
-            'latitude' => ['required'],
-            'longitude' => ['required'],
-            'foto' => ['nullable', 'mimes:jpeg,png,jpg,gif'],
-        ]);
-        $kegiatan = Kegiatan::findOrFail($id);
-        if ($request->hasFile('foto')) {
-            if ($kegiatan->foto != '') {
-                Storage::delete($kegiatan->foto);
+                $filename = Str::random(32) . '.' . $request->file('foto')->getClientOriginalExtension();
+                $file_path = $request->file('foto')->storeAs('public/fotos', $filename);
             }
+            $kegiatan->foto = isset($file_path) ? $file_path : $kegiatan->foto;
+            $kegiatan->slug =  Str::slug($request->nama_kegiatan);
+            $kegiatan->nama_kegiatan = $request->nama_kegiatan;
+            $kegiatan->tanggal_mulai = $request->tanggal_mulai;
+            $kegiatan->tanggal_selesai = $request->tanggal_selesai;
+            $kegiatan->latitude = $request->latitude;
+            $kegiatan->longitude = $request->longitude;
+            $kegiatan->keterangan = $request->keterangan;
 
-            $filename = Str::random(32) . '.' . $request->file('foto')->getClientOriginalExtension();
-            $file_path = $request->file('foto')->storeAs('public/fotos', $filename);
-        }
-        $kegiatan->foto = isset($file_path) ? $file_path : $kegiatan->foto;
-        $kegiatan->nama_kegiatan = $request->nama_kegiatan;
-        $kegiatan->tanggal_mulai = $request->tanggal_mulai;
-        $kegiatan->tanggal_selesai = $request->tanggal_selesai;
-        $kegiatan->latitude = $request->latitude;
-        $kegiatan->longitude = $request->longitude;
-        $kegiatan->keterangan = $request->keterangan;
-
-        if ($kegiatan->save()) {
-            return redirect()->back()->with('success', 'Berhasil mengubah data desa');
-        } else {
-            return redirect()->back()->with('danger', 'Gagal mengubah data desa');
+            if ($kegiatan->save()) {
+                return redirect()->back()->with('success', 'Berhasil mengubah data desa');
+            } else {
+                return redirect()->back()->with('danger', 'Gagal mengubah data desa');
+            }
+        } catch (\Exception $e) {
+            return redirect()->back()->with('danger', 'Terjadi kesalahan : ' . $e->getMessage());
         }
     }
 

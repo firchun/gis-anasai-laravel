@@ -55,6 +55,7 @@
                      markers1 = response.map(el => {
                          return {
                              "id": el['id'],
+                             "slug": el['slug'],
                              "nama": 'Desa ' + el['nama_desa'], // Sesuaikan dengan properti yang benar
                              "latitude": parseFloat(el['latitude']),
                              "longitude": parseFloat(el['longitude']),
@@ -82,6 +83,7 @@
                      markers1 = response.map(el => {
                          return {
                              "id": el['id'],
+                             "slug": el['slug'],
                              "nama": 'Event ' + el[
                                  'nama_kegiatan'], // Sesuaikan dengan properti yang benar
                              "latitude": parseFloat(el['latitude']),
@@ -96,30 +98,7 @@
                      }
                  }
              });
-             //  $.ajax({
-             //      url: "{{ route('get_all_lapak') }}",
-             //      dataType: 'json',
-             //      method: 'GET',
-             //      headers: {
-             //          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-             //      },
-             //      success: function(response) {
-             //          markers1 = response.lapak.map(el => {
-             //              return {
-             //                  "id": el['id'],
-             //                  "nama": 'Lapak Marchandise ' + el[
-             //                      'nama_lapak'], // Sesuaikan dengan properti yang benar
-             //                  "latitude": parseFloat(el['latitude']),
-             //                  "longitude": parseFloat(el['longitude']),
-             //                  "foto": el['foto_url'],
-             //                  "source": "lapak",
-             //              }
-             //          });
-             //          for (i = 0; i < markers1.length; i++) {
-             //              addMarker(markers1[i]);
-             //          }
-             //      }
-             //  });
+
              $.ajax({
                  url: "{{ route('get_all_lapak') }}",
                  dataType: 'json',
@@ -131,6 +110,7 @@
                      markers1 = response.lapak.map(el => {
                          return {
                              "id": el['id'],
+                             "slug": el['slug'],
                              "nama": 'Lapak Marchandise ' + el['nama_lapak'],
                              "latitude": parseFloat(el['latitude']),
                              "longitude": parseFloat(el['longitude']),
@@ -157,6 +137,7 @@
                      markers1 = response.map(el => {
                          return {
                              "id": el['id'],
+                             "slug": el['slug'],
                              "nama": 'Wisata ' + el[
                                  'nama_wisata'], // Sesuaikan dengan properti yang benar
                              "latitude": parseFloat(el['latitude']),

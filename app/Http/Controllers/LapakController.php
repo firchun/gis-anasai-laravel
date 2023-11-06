@@ -32,78 +32,92 @@ class LapakController extends Controller
     }
     public function store(Request $request)
     {
-        $request->validate([
-            'nama_lapak' => ['required'],
-            'id_user' => ['required'],
-            'latitude' => ['required'],
-            'longitude' => ['required'],
-            'foto' => ['nullable', 'mimes:jpeg,png,jpg,gif'],
-        ]);
-        $lapak = new Lapak();
-        if ($request->hasFile('foto')) {
-            $filename = Str::random(32) . '.' . $request->file('foto')->getClientOriginalExtension();
-            $file_path = $request->file('foto')->storeAs('public/fotos', $filename);
-        }
-        $lapak->foto = isset($file_path) ? $file_path : '';
-        $lapak->nama_lapak = $request->nama_lapak;
-        $lapak->id_user = $request->id_user;
-        $lapak->latitude = $request->latitude;
-        $lapak->longitude = $request->longitude;
+        try {
+            $request->validate([
+                'nama_lapak' => ['required'],
+                'id_user' => ['required'],
+                'latitude' => ['required'],
+                'longitude' => ['required'],
+                'foto' => ['nullable', 'mimes:jpeg,png,jpg,gif'],
+            ]);
+            $lapak = new Lapak();
+            if ($request->hasFile('foto')) {
+                $filename = Str::random(32) . '.' . $request->file('foto')->getClientOriginalExtension();
+                $file_path = $request->file('foto')->storeAs('public/fotos', $filename);
+            }
+            $lapak->foto = isset($file_path) ? $file_path : '';
+            $lapak->nama_lapak = $request->nama_lapak;
+            $lapak->slug =  Str::slug($request->nama_lapak);
+            $lapak->id_user = $request->id_user;
+            $lapak->latitude = $request->latitude;
+            $lapak->longitude = $request->longitude;
 
-        if ($lapak->save()) {
-            return redirect()->back()->with('success', 'Berhasil menambahkan desa');
-        } else {
-            return redirect()->back()->with('danger', 'Gagal menambahkan desa');
+            if ($lapak->save()) {
+                return redirect()->back()->with('success', 'Berhasil menambahkan desa');
+            } else {
+                return redirect()->back()->with('danger', 'Gagal menambahkan desa');
+            }
+        } catch (\Exception $e) {
+            return redirect()->back()->with('danger', 'Terjadi kesalahan : ' . $e->getMessage());
         }
     }
     public function store_produk(Request $request)
     {
-        $request->validate([
-            'nama_produk' => ['required'],
-            'id_lapak' => ['required'],
-            'harga' => ['required'],
-            'foto' => ['nullable', 'mimes:jpeg,png,jpg,gif'],
-        ]);
-        $produk = new ProdukLapak();
-        if ($request->hasFile('foto')) {
-            $filename = Str::random(32) . '.' . $request->file('foto')->getClientOriginalExtension();
-            $file_path = $request->file('foto')->storeAs('public/fotos', $filename);
-        }
-        $produk->foto = isset($file_path) ? $file_path : '';
-        $produk->nama_produk = $request->nama_produk;
-        $produk->id_lapak = $request->id_lapak;
-        $produk->harga = $request->harga;
-        $produk->keterangan = $request->keterangan;
+        try {
+            $request->validate([
+                'nama_produk' => ['required'],
+                'id_lapak' => ['required'],
+                'harga' => ['required'],
+                'foto' => ['nullable', 'mimes:jpeg,png,jpg,gif'],
+            ]);
+            $produk = new ProdukLapak();
+            if ($request->hasFile('foto')) {
+                $filename = Str::random(32) . '.' . $request->file('foto')->getClientOriginalExtension();
+                $file_path = $request->file('foto')->storeAs('public/fotos', $filename);
+            }
+            $produk->foto = isset($file_path) ? $file_path : '';
+            $produk->slug =  Str::slug($request->nama_produk);
+            $produk->nama_produk = $request->nama_produk;
+            $produk->id_lapak = $request->id_lapak;
+            $produk->harga = $request->harga;
+            $produk->keterangan = $request->keterangan;
 
-        if ($produk->save()) {
-            return redirect()->back()->with('success', 'Berhasil menambahkan produk');
-        } else {
-            return redirect()->back()->with('danger', 'Gagal menambahkan produk');
+            if ($produk->save()) {
+                return redirect()->back()->with('success', 'Berhasil menambahkan produk');
+            } else {
+                return redirect()->back()->with('danger', 'Gagal menambahkan produk');
+            }
+        } catch (\Exception $e) {
+            return redirect()->back()->with('danger', 'Terjadi kesalahan : ' . $e->getMessage());
         }
     }
     public function store_stok(Request $request)
     {
-        $request->validate([
-            'id_produk_lapak' => ['required'],
-            'jumlah' => ['required'],
-            'jenis' => ['required'],
-        ]);
+        try {
+            $request->validate([
+                'id_produk_lapak' => ['required'],
+                'jumlah' => ['required'],
+                'jenis' => ['required'],
+            ]);
 
-        $stok = new ProdukStok();
-        $stok->id_produk_lapak = $request->id_produk_lapak;
-        $stok->jumlah = $request->jumlah;
-        $stok->jenis = $request->jenis;
+            $stok = new ProdukStok();
+            $stok->id_produk_lapak = $request->id_produk_lapak;
+            $stok->jumlah = $request->jumlah;
+            $stok->jenis = $request->jenis;
 
-        $cek_stok = ProdukStok::getTotalStokProduk($request->id_produk_lapak);
-        // dd($cek_stok);
-        if ($request->jenis == 'pengeluaran' && $request->jumlah >= $cek_stok) {
-            return redirect()->back()->with('danger', 'Gagal mengurangi stok, jumlah stok yang tersedia tidak mencukupi..');
-        } else {
-            if ($stok->save()) {
-                return redirect()->back()->with('success', 'Berhasil udpate stok');
+            $cek_stok = ProdukStok::getTotalStokProduk($request->id_produk_lapak);
+            // dd($cek_stok);
+            if ($request->jenis == 'pengeluaran' && $request->jumlah >= $cek_stok) {
+                return redirect()->back()->with('danger', 'Gagal mengurangi stok, jumlah stok yang tersedia tidak mencukupi..');
             } else {
-                return redirect()->back()->with('danger', 'Gagal udpate stok');
+                if ($stok->save()) {
+                    return redirect()->back()->with('success', 'Berhasil udpate stok');
+                } else {
+                    return redirect()->back()->with('danger', 'Gagal udpate stok');
+                }
             }
+        } catch (\Exception $e) {
+            return redirect()->back()->with('danger', 'Terjadi kesalahan : ' . $e->getMessage());
         }
     }
 
@@ -117,60 +131,68 @@ class LapakController extends Controller
      */
     public function update(Request $request,  $id)
     {
+        try {
+            $request->validate([
+                'nama_lapak' => ['required'],
+                'latitude' => ['required'],
+                'longitude' => ['required'],
+                'foto' => ['nullable', 'mimes:jpeg,png,jpg,gif'],
+            ]);
+            $lapak = Lapak::findOrFail($id);
+            if ($request->hasFile('foto')) {
+                if ($lapak->foto != '') {
+                    Storage::delete($lapak->foto);
+                }
 
-        $request->validate([
-            'nama_lapak' => ['required'],
-            'latitude' => ['required'],
-            'longitude' => ['required'],
-            'foto' => ['nullable', 'mimes:jpeg,png,jpg,gif'],
-        ]);
-        $lapak = Lapak::findOrFail($id);
-        if ($request->hasFile('foto')) {
-            if ($lapak->foto != '') {
-                Storage::delete($lapak->foto);
+                $filename = Str::random(32) . '.' . $request->file('foto')->getClientOriginalExtension();
+                $file_path = $request->file('foto')->storeAs('public/fotos', $filename);
             }
+            $lapak->foto = isset($file_path) ? $file_path : $lapak->foto;
+            $lapak->id_user = $request->id_user;
+            $lapak->slug =  Str::slug($request->nama_lapak);
+            $lapak->nama_lapak = $request->nama_lapak;
+            $lapak->latitude = $request->latitude;
+            $lapak->longitude = $request->longitude;
 
-            $filename = Str::random(32) . '.' . $request->file('foto')->getClientOriginalExtension();
-            $file_path = $request->file('foto')->storeAs('public/fotos', $filename);
-        }
-        $lapak->foto = isset($file_path) ? $file_path : $lapak->foto;
-        $lapak->id_user = $request->id_user;
-        $lapak->nama_lapak = $request->nama_lapak;
-        $lapak->latitude = $request->latitude;
-        $lapak->longitude = $request->longitude;
-
-        if ($lapak->save()) {
-            return redirect()->back()->with('success', 'Berhasil mengubah data desa');
-        } else {
-            return redirect()->back()->with('danger', 'Gagal mengubah data desa');
+            if ($lapak->save()) {
+                return redirect()->back()->with('success', 'Berhasil mengubah data desa');
+            } else {
+                return redirect()->back()->with('danger', 'Gagal mengubah data desa');
+            }
+        } catch (\Exception $e) {
+            return redirect()->back()->with('danger', 'Terjadi kesalahan : ' . $e->getMessage());
         }
     }
     public function update_produk(Request $request,  $id)
     {
+        try {
+            $request->validate([
+                'nama_produk' => ['required'],
+                'harga' => ['required'],
+                'foto' => ['nullable', 'mimes:jpeg,png,jpg,gif'],
+            ]);
+            $produk = ProdukLapak::findOrFail($id);
+            if ($request->hasFile('foto')) {
+                if ($produk->foto != '') {
+                    Storage::delete($produk->foto);
+                }
 
-        $request->validate([
-            'nama_produk' => ['required'],
-            'harga' => ['required'],
-            'foto' => ['nullable', 'mimes:jpeg,png,jpg,gif'],
-        ]);
-        $produk = ProdukLapak::findOrFail($id);
-        if ($request->hasFile('foto')) {
-            if ($produk->foto != '') {
-                Storage::delete($produk->foto);
+                $filename = Str::random(32) . '.' . $request->file('foto')->getClientOriginalExtension();
+                $file_path = $request->file('foto')->storeAs('public/fotos', $filename);
             }
+            $produk->foto = isset($file_path) ? $file_path : $produk->foto;
+            $produk->slug =  Str::slug($request->nama_produk);
+            $produk->nama_produk = $request->nama_produk;
+            $produk->harga = $request->harga;
+            $produk->keterangan = $request->keterangan;
 
-            $filename = Str::random(32) . '.' . $request->file('foto')->getClientOriginalExtension();
-            $file_path = $request->file('foto')->storeAs('public/fotos', $filename);
-        }
-        $produk->foto = isset($file_path) ? $file_path : $produk->foto;
-        $produk->nama_produk = $request->nama_produk;
-        $produk->harga = $request->harga;
-        $produk->keterangan = $request->keterangan;
-
-        if ($produk->save()) {
-            return redirect()->back()->with('success', 'Berhasil mengubah data produk');
-        } else {
-            return redirect()->back()->with('danger', 'Gagal mengubah data produk');
+            if ($produk->save()) {
+                return redirect()->back()->with('success', 'Berhasil mengubah data produk');
+            } else {
+                return redirect()->back()->with('danger', 'Gagal mengubah data produk');
+            }
+        } catch (\Exception $e) {
+            return redirect()->back()->with('danger', 'Terjadi kesalahan : ' . $e->getMessage());
         }
     }
 

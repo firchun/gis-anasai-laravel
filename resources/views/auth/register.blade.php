@@ -35,16 +35,21 @@
 
                                         <div class="form-group">
                                             <input type="text" class="form-control " name="phone"
-                                                placeholder="{{ __('Nomor HP') }}" value="{{ old('phone') }}" required>
+                                                placeholder="{{ __('8xxx') }}" value="{{ old('phone') ?? '+62' }}"
+                                                required>
+                                            <small class="text-muted">Gunakan awalan +62 untuk menggantikan awalan 0 pada
+                                                nomor anda</small>
                                         </div>
 
                                         <div class="form-group">
                                             <input type="email" class="form-control " name="email"
                                                 placeholder="{{ __('E-Mail') }}" value="{{ old('email') }}" required>
+                                            <small class="text-muted">Pastikan bahwa email aktif dan bisa mengirim
+                                                email..</small>
                                         </div>
                                         <div class="form-group">
                                             <select class="form-control " name="role">
-                                                <option value="member" selected>Member</option>
+                                                <option value="member" selected>Member (pengguna biasa)</option>
                                                 <option value="seller">Penjual</option>
                                             </select>
                                         </div>
@@ -52,11 +57,14 @@
                                         <div class="form-group">
                                             <input type="password" class="form-control " name="password"
                                                 placeholder="{{ __('Password') }}" required>
+                                            <small class="text-muted">Password minimal berisikan 8 karakter gabungan angka,
+                                                huruf dan karakter lain</small>
                                         </div>
 
                                         <div class="form-group">
                                             <input type="password" class="form-control " name="password_confirmation"
                                                 placeholder="{{ __('Confirm Password') }}" required>
+                                            <small class="text-muted">Konfirmasi kembali password anda</small>
                                         </div>
 
 

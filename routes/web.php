@@ -8,6 +8,7 @@ use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\LapakController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReviewRatingController;
 use App\Http\Controllers\WisataController;
 use App\Models\Kegiatan;
 use Illuminate\Support\Facades\Auth;
@@ -27,16 +28,21 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [FrontController::class, 'index']);
+Route::get('/search', [FrontController::class, 'search'])->name('search');
 Route::get('/village', [FrontController::class, 'desa'])->name('village');
-Route::get('/village/detail/{id}', [FrontController::class, 'desa_detail'])->name('village.detail');
+Route::get('/village/detail/{slug}', [FrontController::class, 'desa_detail'])->name('village.detail');
 Route::get('/event', [FrontController::class, 'event'])->name('event');
-Route::get('/event/detail/{id}', [FrontController::class, 'event_detail'])->name('event.detail');
+Route::get('/event/detail/{slug}', [FrontController::class, 'event_detail'])->name('event.detail');
 Route::get('/tour', [FrontController::class, 'wisata'])->name('tour');
-Route::get('/tour/detail/{id}', [FrontController::class, 'wisata_detail'])->name('tour.detail');
+Route::get('/tour/detail/{slug}', [FrontController::class, 'wisata_detail'])->name('tour.detail');
 Route::get('/merchandise', [FrontController::class, 'merchandise'])->name('merchandise');
-Route::get('/merchandise/detail/{id}', [FrontController::class, 'merchandise_detail'])->name('merchandise.detail');
+Route::get('/merchandise/detail/{slug}', [FrontController::class, 'merchandise_detail'])->name('merchandise.detail');
 Route::get('/shop', [FrontController::class, 'shop'])->name('shop');
-Route::get('/shop/detail/{id}', [FrontController::class, 'shop_detail'])->name('shop.detail');
+Route::get('/shop/detail/{slug}', [FrontController::class, 'shop_detail'])->name('shop.detail');
+
+//rating
+Route::post('/review/store', [ReviewRatingController::class, 'store'])->name('review.store');
+
 
 Auth::routes(['verify' => true]);
 Route::middleware(['auth:web', 'role:admin,seller'])->group(function () {
@@ -82,7 +88,9 @@ Route::middleware(['auth:web', 'role:admin'])->group(function () {
     //route wisata
     Route::get('/wisata', [WisataController::class, 'index'])->name('wisata');
     Route::post('/wisata/store', [WisataController::class, 'store'])->name('wisata.store');
+    Route::post('/wisata/storeFoto', [WisataController::class, 'storeFoto'])->name('wisata.storeFoto');
     Route::put('/wisata/update/{id}', [WisataController::class, 'update'])->name('wisata.update');
+    Route::get('/wisata/images/{id}', [WisataController::class, 'images'])->name('wisata.images');
     Route::delete('/wisata/destroy/{id}', [WisataController::class, 'destroy'])->name('wisata.destroy');
 
     //route laporan

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{ env('APP_NAME' ?? 'Anasai') }} {{ $title ?? '' }}</title>
+    <title>{{ env('APP_NAME' ?? 'Sinai') }} {{ $title ?? '' }}</title>
     <link rel="icon" type="image/png" href="{{ asset('frontend') }}/img/icon/bavel.png">
 
     <!-- Meta Description -->
@@ -22,6 +22,121 @@
     <!-- Import Style -->
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/css/main.css">
 
+    <style>
+        .rate {
+            float: left;
+            height: 50px;
+            padding: 0 10px;
+        }
+
+        .rate:not(:checked)>input {
+            position: absolute;
+            display: none;
+        }
+
+        .rate:not(:checked)>label {
+            float: right;
+            width: 1em;
+            overflow: hidden;
+            white-space: nowrap;
+            cursor: pointer;
+            font-size: 30px;
+            color: #ccc;
+        }
+
+        .rated:not(:checked)>label {
+            float: right;
+            width: 1em;
+            overflow: hidden;
+            white-space: nowrap;
+            cursor: pointer;
+            font-size: 30px;
+            color: #ccc;
+        }
+
+        .rate:not(:checked)>label:before {
+            content: '★ ';
+        }
+
+        .rate>input:checked~label {
+            color: #ffc700;
+        }
+
+        .rate:not(:checked)>label:hover,
+        .rate:not(:checked)>label:hover~label {
+            color: #deb217;
+        }
+
+        .rate>input:checked+label:hover,
+        .rate>input:checked+label:hover~label,
+        .rate>input:checked~label:hover,
+        .rate>input:checked~label:hover~label,
+        .rate>label:hover~input:checked~label {
+            color: #c59b08;
+        }
+
+        .star-rating-complete {
+            color: #c59b08;
+        }
+
+        .rating-container .form-control:hover,
+        .rating-container .form-control:focus {
+            background: #fff;
+            border: 1px solid #ced4da;
+        }
+
+        .rating-container textarea:focus,
+        .rating-container input:focus {
+            color: #000;
+        }
+
+        .rated {
+            float: left;
+            height: 46px;
+            padding: 0 10px;
+        }
+
+        .rated:not(:checked)>input {
+            position: absolute;
+            display: none;
+        }
+
+        .rated:not(:checked)>label {
+            float: right;
+            width: 1em;
+            overflow: hidden;
+            white-space: nowrap;
+            cursor: pointer;
+            font-size: 30px;
+            color: #ffc700;
+        }
+
+        .rated:not(:checked)>label:before {
+            content: '★ ';
+        }
+
+        .rated>input:checked~label {
+            color: #ffc700;
+        }
+
+        .rated:not(:checked)>label:hover,
+        .rated:not(:checked)>label:hover~label {
+            color: #deb217;
+        }
+
+        .rated>input:checked+label:hover,
+        .rated>input:checked+label:hover~label,
+        .rated>input:checked~label:hover,
+        .rated>input:checked~label:hover~label,
+        .rated>label:hover~input:checked~label {
+            color: #c59b08;
+        }
+
+        .icon {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+    </style>
     {{-- add css  --}}
     @stack('style')
     <style>
@@ -88,8 +203,38 @@
             background: linear-gradient(to top, rgba(0, 0, 0, 0.582), rgba(0, 0, 0, 0));
             pointer-events: none;
         }
-    </style>
 
+        .floating-button {
+            justify-content: center;
+            display: flex;
+            align-items: center;
+            /* line-height: 46PX; */
+            text-align: center;
+            height: 60px;
+            width: 60px;
+            position: fixed;
+            bottom: 50px;
+            right: 50px;
+            background-color: rgb(0, 115, 255);
+            border-radius: 50%;
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+        }
+
+        .floating-button a {
+
+            color: #ffffff;
+            text-decoration: none;
+            text-align: center;
+            /* color: #F9690E; */
+        }
+
+        .badge-top-right {
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 
 <body style="background: white;">
@@ -98,6 +243,20 @@
     <section class="sidebar-overlay"></section>
     @yield('content')
     @include('layouts.front_component.footer')
+    @guest
+        <div class="floating-button ">
+            <a href="{{ route('login') }}"><i class="ion-chatbubble" style="font-size: 50px;"></i>
+            </a>
+        </div>
+    @else
+        @if (Auth::user()->role == 'member')
+            <div class="floating-button ">
+                <span class="badge badge-danger badge-top-right">3</span>
+                <a href="#"><i class="ion-chatbubble" style="font-size: 50px;"></i>
+                </a>
+            </div>
+        @endif
+    @endguest
     <script type="text/javascript" src="{{ asset('frontend') }}/js/jquery.js"></script>
     <script type="text/javascript" src="{{ asset('frontend') }}/js/main.js"></script>
     <script type="text/javascript" src="{{ asset('frontend') }}/js/swipe.js"></script>
@@ -111,6 +270,9 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-M1gr6FqKtp2l2w2MaC5lGv6tJ5Xs2qTTrJnT5Vd5M8F5lHM5nXwN/1wZlKaXjk6R" crossorigin="anonymous">
     </script>{{-- add script --}} @stack('script')
+    {{-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> --}}
 </body>
 
 </html>

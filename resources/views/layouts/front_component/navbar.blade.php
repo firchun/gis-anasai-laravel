@@ -4,10 +4,12 @@
           <div class="navbar-bars">
               <a href="#" class="navbar-title sidebar-toggle" style="padding: 0;"><i
                       class="ion-navicon-round"></i></a>
-              <a href="{{ url('/') }}" class="navbar-title text-decoration-none" style="color: white;">Anasai</a>
+              <a href="{{ url('/') }}" class="navbar-title text-decoration-none"
+                  style="color: white;">{{ env('APP_NAME') }}</a>
           </div>
           <div class="navbar-item ">
-              <a href="{{ url('/') }}" class="navbar-title text-decoration-none " style="color: white;">Anasai</a>
+              <a href="{{ url('/') }}" class="navbar-title text-decoration-none "
+                  style="color: white;">{{ env('APP_NAME') }}</a>
               <ul class="mr-auto">
                   <li><a href="{{ url('/tour') }}" style="@if (request()->is('tour')) color: yellow; @endif"
                           class="text-decoration-none">Wisata</a></li>
@@ -29,7 +31,8 @@
                               @csrf
                           </form>
                       @else
-                          <li><a href="{{ route('home') }}" class="text-decoration-none">Dashboard</a></li>
+                          <li><a href="{{ route('home') }}" class="text-decoration-none"
+                                  style="color:orangered;">Dashboard</a></li>
                       @endif
                   @endguest
               </ul>

@@ -10,7 +10,7 @@
           <div class="row justify-content-center align-items-center">
               @foreach ($desa->take(3) as $item)
                   <div class="col-lg-4">
-                      <a href="{{ route('village.detail', $item->id) }}">
+                      <a href="{{ route('village.detail', $item->slug) }}">
                           <div class="card text-white">
                               <div class="position-relative">
                                   <img src="{{ $item->foto ? Storage::url($item->foto) : asset('img/no-image.jpg') }}"
@@ -36,7 +36,7 @@
           <a href="{{ url('/village') }}" class="btn btn-orange btn-round">Tampilkan lainnya..</a>
       </div>
       <svg class="hero-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 10" preserveAspectRatio="none"
-          style="height: 50px;">
+          style="height: 50px; width:100%;">
           <path fill="#ffffff" d="M0 10 0 0 A 90 59, 0, 0, 0, 100 0 L 100 10 Z"></path>
       </svg>
   </section>

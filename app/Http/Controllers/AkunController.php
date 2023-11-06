@@ -37,43 +37,51 @@ class AkunController extends Controller
     }
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => ['required'],
-            'email' => ['required'],
-            'phone' => ['required'],
-        ]);
-        $akun = new User();
+        try {
+            $request->validate([
+                'name' => ['required'],
+                'email' => ['required'],
+                'phone' => ['required'],
+            ]);
+            $akun = new User();
 
-        $akun->name = $request->name;
-        $akun->email = $request->email;
-        $akun->phone = '+62' . $request->phone;
-        $akun->role = 'admin';
-        $akun->password = Hash::make('admin');
-        $akun->email_verified_at = new DateTime();
+            $akun->name = $request->name;
+            $akun->email = $request->email;
+            $akun->phone = '+62' . $request->phone;
+            $akun->role = 'admin';
+            $akun->password = Hash::make('admin');
+            $akun->email_verified_at = new DateTime();
 
-        if ($akun->save()) {
-            return redirect()->back()->with('success', 'Berhasil menambahkan admin');
-        } else {
-            return redirect()->back()->with('danger', 'Gagal menambahkan admin');
+            if ($akun->save()) {
+                return redirect()->back()->with('success', 'Berhasil menambahkan admin');
+            } else {
+                return redirect()->back()->with('danger', 'Gagal menambahkan admin');
+            }
+        } catch (\Exception $e) {
+            return redirect()->back()->with('danger', 'Terjadi kesalahan : ' . $e->getMessage());
         }
     }
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name' => ['required'],
-            'email' => ['required'],
-            'phone' => ['required'],
-        ]);
-        $akun = User::findOrFail($id);
+        try {
+            $request->validate([
+                'name' => ['required'],
+                'email' => ['required'],
+                'phone' => ['required'],
+            ]);
+            $akun = User::findOrFail($id);
 
-        $akun->name = $request->name;
-        $akun->email = $request->email;
-        $akun->phone = $request->phone;
+            $akun->name = $request->name;
+            $akun->email = $request->email;
+            $akun->phone = $request->phone;
 
-        if ($akun->save()) {
-            return redirect()->back()->with('success', 'Berhasil mengubah admin');
-        } else {
-            return redirect()->back()->with('danger', 'Gagal mengubah admin');
+            if ($akun->save()) {
+                return redirect()->back()->with('success', 'Berhasil mengubah admin');
+            } else {
+                return redirect()->back()->with('danger', 'Gagal mengubah admin');
+            }
+        } catch (\Exception $e) {
+            return redirect()->back()->with('danger', 'Terjadi kesalahan : ' . $e->getMessage());
         }
     }
     public function destroy($id)

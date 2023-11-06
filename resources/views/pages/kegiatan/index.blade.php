@@ -58,16 +58,36 @@
                                             src="{{ $item->foto ? Storage::url($item->foto) : asset('img/no-image.jpg') }}"
                                             class="img-fluid rounded" style="height: 80px;"></td>
                                     <td><strong>Event
-                                            {{ $item->nama_kegiatan }}</strong><br>Mulai tanggal
-                                        {{ $item->tanggal_mulai . ' sampai dengan ' . $item->tanggal_selesai }}
+                                            {{ $item->nama_kegiatan }}</strong><br>
+                                        @php
+                                            $rating = App\Models\reviewRating::where('identity', $item->id)->where('type', 'kegiatan');
+                                            $review = $rating->count();
+                                            $average_rating = $rating->avg('star_rating');
+                                            $total_rating = round($average_rating);
+                                        @endphp
+                                        @if ($total_rating != 0)
+                                            @for ($i = 1; $i <= $total_rating; $i++)
+                                                <i class="fa fa-star text-warning "></i>
+                                            @endfor
+                                        @else
+                                            @for ($i = 1; $i <= 5; $i++)
+                                                <i class="fa fa-star text-muted "></i>
+                                            @endfor
+                                        @endif
+                                        <br>Mulai tanggal
+                                        {{ date('d F', strtotime($item->tanggal_mulai)) . ' sampai dengan ' . date('d F', strtotime($item->tanggal_selesai)) }}
                                     </td>
                                     <td>
                                         {!! $item->keterangan
                                             ? Str::limit($item->keterangan, 200)
                                             : '<span class="text-muted">Keterangan tidak tersedia</span>' !!}
                                     </td>
-
-                                    <td style="width: 200px;">
+                                    <td style="width: 250px;">
+                                        <a href="#" data-toggle="modal" data-target="#ulasan-{{ $item->id }}"
+                                            class="btn btn-info position-relative"><i class="fa fa-comments"></i>
+                                            <span
+                                                class="badge badge-danger position-absolute top-0 end-0">{{ $review }}</span>
+                                        </a>
                                         <a href="#" data-toggle="modal" data-target="#edit-{{ $item->id }}"
                                             class="btn btn-warning"><i class="fa fa-pencil"></i> Update
                                         </a>
@@ -85,6 +105,9 @@
             </div>
         </div>
     </div>
+    @foreach ($kegiatan as $item)
+        @include('pages.kegiatan.components.modal_ulasan')
+    @endforeach
     @include('pages.kegiatan.components.modal_create')
 @endsection
 @push('js')

@@ -30,9 +30,15 @@
                                          $average_rating = $rating->avg('star_rating');
                                          $total_rating = round($average_rating);
                                      @endphp
-                                     @for ($i = 1; $i <= $total_rating; $i++)
-                                         <i class="ion-star icon text-warning h3"></i>
-                                     @endfor
+                                     @if ($total_rating != 0)
+                                         @for ($i = 1; $i <= $total_rating; $i++)
+                                             <i class="ion-star icon text-warning h3"></i>
+                                         @endfor
+                                     @else
+                                         @for ($i = 1; $i <= 5; $i++)
+                                             <i class="ion-star icon text-muted h3"></i>
+                                         @endfor
+                                     @endif
                                  </div>
                                  <small class="text-muted">{{ $review . ' Ulasan' }}</small><br>
                                  @php

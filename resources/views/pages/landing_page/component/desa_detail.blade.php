@@ -36,7 +36,8 @@
         <div class="overlay" style="background:transparent;">
             <div class="caption">
                 <img src="{{ $desa->foto ? Storage::url($desa->foto) : asset('img/no-image.jpg') }}" alt="image"
-                    style="max-height: 500px; max-width:300px; border-radius:20px;" class="d-md-none  shadow-lg">
+                    style="max-height: 500px; max-width:300px; border-radius:20px;" class="d-md-none  shadow-lg"
+                    loading="lazy">
                 <!-- Ubah kelas d-md-block menjadi d-md-none -->
             </div>
         </div>

@@ -15,7 +15,7 @@
                               <div class="card text-white">
                                   <div class="position-relative">
                                       <img src="{{ $item->foto ? Storage::url($item->foto) : asset('img/no-image.jpg') }}"
-                                          class="card-img" alt="...">
+                                          class="card-img" alt="..." loading="lazy">
                                       <div class="card-img-overlay d-flex flex-column justify-content-end text-center">
                                           <h5 class="card-title mb-0 font-weight-bold">Desa {{ $item->nama_desa }}</h5>
                                           {{-- <p class="card-text">

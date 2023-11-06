@@ -1,7 +1,7 @@
 <!-- Section Header -->
 <section class="section-header">
     <div class="section-header-image">
-        <img src="{{ asset('frontend') }}/img/header.jpg" alt="Header">
+        <img src="{{ asset('frontend') }}/img/header.jpg" alt="Header" loading="lazy">
     </div>
     <div class="container">
         <div class="section-header-inner">

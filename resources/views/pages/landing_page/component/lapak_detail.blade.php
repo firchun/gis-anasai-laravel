@@ -10,7 +10,8 @@
 
           <img src="{{ $produk_lapak->foto ? Storage::url($produk_lapak->foto) : asset('img/no-image.jpg') }}"
               alt="Destination"
-              style="border-radius: 20px; box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px; height:500px;">
+              style="border-radius: 20px; box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px; height:500px;"
+              loading="lazy">
       </div>
       <div class="container">
           <strong>Informasi Merchandise :</strong><br>

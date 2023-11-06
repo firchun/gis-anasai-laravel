@@ -6,7 +6,8 @@
         <div class="overlay" style="background:transparent;">
             <div class="caption">
                 <img src="{{ $toko->foto ? Storage::url($toko->foto) : asset('img/no-image.jpg') }}" alt="image"
-                    style="max-height: 500px; max-width:300px; border-radius:20px;" class="d-md-none  shadow-lg">
+                    style="max-height: 500px; max-width:300px; border-radius:20px;" class="d-md-none  shadow-lg"
+                    loading="lazy">
                 <!-- Ubah kelas d-md-block menjadi d-md-none -->
             </div>
         </div>
@@ -33,7 +34,8 @@
                                     style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius:10px;">
                                     <img src="{{ $item->foto ? Storage::url($item->foto) : asset('img/no-image.jpg') }}"
                                         class="card-img-top" alt="..."
-                                        style="border-top-left-radius: 10px; border-top-right-radius: 10px;">
+                                        style="border-top-left-radius: 10px; border-top-right-radius: 10px; height: 300px; object-fit:cover;"
+                                        loading="lazy">
                                     <div class="card-body">
                                         <h5 class="card-title " style="color: #f25601">{{ $item->nama_produk }}</h5>
                                         <span class="card-text text-primary"><b>Rp.
@@ -61,7 +63,8 @@
                                         <div class="modal-body">
                                             <img src="{{ $item->foto ? Storage::url($item->foto) : asset('img/no-image.jpg') }}"
                                                 class="card-img-top" alt="..."
-                                                style="border-top-left-radius: 10px; border-top-right-radius: 10px;">
+                                                style="border-top-left-radius: 10px; border-top-right-radius: 10px;"
+                                                loading="lazy">
                                         </div>
 
                                     </div>

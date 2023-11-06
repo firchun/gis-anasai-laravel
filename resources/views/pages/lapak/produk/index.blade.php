@@ -51,7 +51,7 @@
                         <tr>
                             <td colspan="2" class="text-center">
                                 <img src="{{ $lapak->foto ? Storage::url($lapak->foto) : asset('img/no-image.jpg') }}"
-                                    class="img-fluid rounded" style="height: 150px;">
+                                    class="img-fluid rounded" style="height: 150px;" loading="lazy">
                             </td>
                         </tr>
                         <tr>

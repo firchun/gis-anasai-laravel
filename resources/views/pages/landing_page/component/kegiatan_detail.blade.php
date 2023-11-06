@@ -7,7 +7,7 @@
             <div class="caption">
                 <img src="{{ $kegiatan->foto ? Storage::url($kegiatan->foto) : asset('img/no-image.jpg') }}"
                     alt="image" style="max-height: 500px; max-width:300px; border-radius:20px;"
-                    class="d-md-none  shadow-lg">
+                    class="d-md-none  shadow-lg" loading="lazy">
                 <!-- Ubah kelas d-md-block menjadi d-md-none -->
             </div>
         </div>

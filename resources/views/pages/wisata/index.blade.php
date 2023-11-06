@@ -57,7 +57,7 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td style="width: 150px;" class="text-center"><img
                                             src="{{ $item->foto ? Storage::url($item->foto) : asset('img/no-image.jpg') }}"
-                                            class="img-fluid rounded" style="height: 80px;"></td>
+                                            class="img-fluid rounded" style="height: 80px;" loading="lazy"></td>
                                     <td><strong>Wisata
                                             {{ $item->nama_wisata }}</strong><br>
                                         @php

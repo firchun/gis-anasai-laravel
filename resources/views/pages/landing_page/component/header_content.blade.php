@@ -1,5 +1,5 @@
 <section class="section-header-single">
-    <img src="{{ asset('/frontend') }}/img/header4.jpg">
+    <img src="{{ asset('/frontend') }}/img/header4.jpg" loading="lazy">
     <div class="overlay">
         <div class="header-title">
             <h3>{{ $title }}</h3>

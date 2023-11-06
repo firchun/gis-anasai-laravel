@@ -12,7 +12,8 @@
                           <a href="{{ route('event.detail', $item->slug) }}" class="zoom-hover">
                               <div class="zoom-hover">
                                   <img src="{{ $item->foto ? Storage::url($item->foto) : asset('img/no-image.jpg') }}"
-                                      class="card-img" alt="..." style="height: 300px; object-fit:cover;">
+                                      class="card-img" alt="..." style="height: 300px; object-fit:cover;"
+                                      loading="lazy">
                               </div>
                           </a>
                           <div class="p-3 text-center">

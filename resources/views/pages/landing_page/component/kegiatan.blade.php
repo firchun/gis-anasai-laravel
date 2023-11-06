@@ -46,7 +46,7 @@
                               <div class="my-2">
                                   <strong>Keterangan :</strong><br>
                                   <span class="text-muted">
-                                      {{ $item->keterangan ?? 'Keterangan tidak tersedia' }}
+                                      {{ Str::limit($item->keterangan, 50) ?? 'Keterangan tidak tersedia' }}
                                   </span>
                               </div>
                               <div class="mt-3">

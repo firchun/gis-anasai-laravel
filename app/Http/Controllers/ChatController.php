@@ -13,6 +13,16 @@ use Illuminate\Support\Facades\Auth;
 
 class ChatController extends Controller
 {
+    public function lapak()
+    {
+        $room_user = DB::table('chat_room_users')->where('id_user', Auth::user()->id)->get();
+        // dd($room_user);
+        $data = [
+            'title' => 'Chat Pelanggan',
+            'room_user' => $room_user,
+        ];
+        return view('pages.chat.index', $data);
+    }
     public function room($room)
     {
         // Get room

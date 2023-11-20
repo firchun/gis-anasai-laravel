@@ -133,6 +133,16 @@
             </a>
         </li>
         <hr class="sidebar-divider d-none d-md-block">
+        <div class="sidebar-heading">
+            {{ __('Chat Pelanggan') }}
+        </div>
+        <li class="nav-item {{ Nav::isRoute('lapak.chat') }}">
+            <a class="nav-link" href="{{ url('/lapak/chat') }}">
+                <i class="fas fa-comment"></i>
+                <span>{{ __('Chat') }}</span>
+            </a>
+        </li>
+        <hr class="sidebar-divider d-none d-md-block">
     @endif
     <div class="sidebar-heading">
         {{ __('Settings') }}

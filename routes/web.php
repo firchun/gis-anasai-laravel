@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AkunController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\DesaController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\HomeController;
@@ -54,6 +55,8 @@ Route::middleware(['auth:web'])->group(function () {
 Route::middleware(['auth:web', 'role:admin,seller'])->group(function () {
     //route dashboard
     Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware(['auth', 'verified']);
+    //route chat
+    Route::get('/lapak/chat', [ChatController::class, 'lapak'])->name('lapak.chat');
     //route profile
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');

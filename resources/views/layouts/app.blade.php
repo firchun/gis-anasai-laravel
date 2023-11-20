@@ -427,10 +427,21 @@
                                         <br>
                                         <span class="text-dark mb-0 px-2 py-1 rounded"
                                             style="background-color: rgb(231, 230, 230);">
-                                            {{ Str::limit($chat->message, 20) }}</span>
+                                            @if ($chat != null)
+                                                {{ Str::limit($chat->message, 20) }}
+                                            @else
+                                                -
+                                            @endif
+                                        </span>
+
                                         <br>
-                                        <small class="text-muted"
-                                            style="font-size: 10px;">{{ $time_chat->created_at->diffFOrHumans() }}</small>
+                                        <small class="text-muted" style="font-size: 10px;">
+                                            @if ($time_chat != null)
+                                                {{ $time_chat->created_at->diffFOrHumans() }}
+                                            @else
+                                                -
+                                            @endif
+                                        </small>
                                     </div>
                                 </div>
                             </div>

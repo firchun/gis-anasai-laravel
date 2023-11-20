@@ -21,6 +21,8 @@
                 <a href="https://maps.google.com/?saddr=My+Location&daddr={{ $toko->latitude }},{{ $toko->longitude }}"
                     target="_blank" class="btn btn-orange btn-round "
                     style="margin-top:20px; margin-bottom:10px; padding:5px 10px;">Rute menuju tempat wisata</a>
+                <a href="{{ route('chat', $toko->id_user) }}" class="btn btn-primary btn-round "
+                    style="margin-top:20px; margin-bottom:10px; padding:5px 10px;">Chat Lapak</a>
                 {{-- <hr class="my-3"> --}}
 
             </div>

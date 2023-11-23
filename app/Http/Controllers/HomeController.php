@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notifikasi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -27,5 +29,13 @@ class HomeController extends Controller
             'title' => 'Dashboard',
         ];
         return view('pages.dashboard.home', $data);
+    }
+    public function notifikasi()
+    {
+        $data = [
+            'title' => 'Semua Notifikasi',
+            'notifikasi' => Notifikasi::where('id_user', Auth::user()->id)->get(),
+        ];
+        return view('pages.notifikasi.notifikasi', $data);
     }
 }

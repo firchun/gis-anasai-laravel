@@ -11,6 +11,7 @@ use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReviewRatingController;
 use App\Http\Controllers\WisataController;
+use App\Http\Controllers\NotifikasiController;
 use App\Models\Kegiatan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -47,6 +48,11 @@ Route::post('/review/store', [ReviewRatingController::class, 'store'])->name('re
 
 Auth::routes(['verify' => true]);
 Route::middleware(['auth:web'])->group(function () {
+    // Notifikasi
+    Route::put('/read_notif/{id}', [NotifikasiController::class, 'read'])->name('read_notif');
+    Route::put('/read_all/{id}', [NotifikasiController::class, 'read_all'])->name('read_all');
+    Route::get('/notifikasi', [HomeController::class, 'notifikasi'])->name('notifikasi');
+
     Route::get('/chat/user/{user}', [App\Http\Controllers\ChatController::class, 'chat'])->name('chat');
     Route::get('/chat/room/{room}', [App\Http\Controllers\ChatController::class, 'room'])->name('chat.room');
     Route::get('/chat/get/{room}', [App\Http\Controllers\ChatController::class, 'getChat'])->name('chat.get');

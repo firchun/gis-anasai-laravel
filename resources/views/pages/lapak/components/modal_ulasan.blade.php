@@ -22,7 +22,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (App\Models\reviewRating::where('identity', $item->id)->where('type', 'lapak')->get() as $rating)
+                                @foreach (App\Models\reviewRating::where('identity', $item->id)->where('type', 'lapak')->latest()->get() as $rating)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>

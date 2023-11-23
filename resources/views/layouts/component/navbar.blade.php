@@ -46,45 +46,55 @@
                  </form>  --}}
              </div>
          </li>
-         {{-- {{dd(count(auth()->guard('pegawai')->user()->unreadNotifications))}} --}}
-         {{-- @if (Auth::guard('pegawai')->user())
-             <li class="nav-item dropdown no-arrow mx-1">
-                 <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                     <i class="fa fa-bell fa-fw text-primary"></i>
-                     <!-- Counter - Alerts -->
-
-                     @if (auth()->user()->unreadNotifications->count() > 0)
-                         <span
-                             class="badge badge-danger badge-counter">{{ auth()->user()->unreadNotifications->count() }}</span>
-                     @endif
-                 </a>
-                 <!-- Dropdown - Alerts -->
-                 <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                     aria-labelledby="alertsDropdown">
-                     <h6 class="dropdown-header">
-                         Notifikasi File Baru
-                     </h6>
-                     @foreach (auth()->user()->unreadNotifications as $notification)
-                         <a class="dropdown-item d-flex align-items-center"
-                             href="{{ url($notification->data['url'] . '?id=' . $notification->id) }}" target="_blank">
+         <!-- Nav Item - Alerts -->
+         @php
+             $notifikasi = App\Models\Notifikasi::where('id_user', Auth::user()->id)
+                 ->where('read_at', null)
+                 ->latest();
+             $total_notif = $notifikasi->count() >= 6 ? '5+' : $notifikasi->count();
+         @endphp
+         <li class="nav-item dropdown no-arrow mx-1">
+             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                 <i class="fas fa-bell fa-fw"></i>
+                 <!-- Counter - Alerts -->
+                 <span class="badge badge-danger badge-counter">{{ $total_notif }}</span>
+             </a>
+             <!-- Dropdown - Alerts -->
+             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                 aria-labelledby="alertsDropdown">
+                 <h6 class="dropdown-header">
+                     Notifikasi
+                 </h6>
+                 @foreach ($notifikasi->take(5)->get() as $item)
+                     <form action="{{ route('read_notif', $item->id) }}" method="POST">
+                         @csrf
+                         @method('PUT')
+                         <button type="submit" class="dropdown-item d-flex align-items-center" href="#">
                              <div class="mr-3">
-                                 <div class="icon-circle bg-success">
-                                     <i class="fas fa-file-alt text-white"></i>
-                                 </div>
+                                 @if ($item->type == 'primary')
+                                     <div class="icon-circle bg-primary">
+                                         <i class="fas fa-thumbs-up text-white"></i>
+                                     </div>
+                                 @elseif($item->type == 'danger')
+                                     <div class="icon-circle bg-danger">
+                                         <i class="fas fa-exclamation text-white"></i>
+                                     </div>
+                                 @endif
                              </div>
                              <div>
-                                 <div class="small text-gray-500">{{ $notification->created_at->isoFormat('D MMMM Y') }}
-                                 </div>
-                                 <span class="font-weight-normal">{{ $notification->data['messages'] }}</span>
+                                 <div class="small text-gray-500">{{ $item->created_at->format('d F Y,H:i:s') }}</div>
+                                 <span class="font-weight-bold text-{{ $item->type }}">{{ $item->message }}</span>
                              </div>
-                         </a>
-                     @endforeach
-                     <a class="dropdown-item text-center small text-gray-500" href="#">Tampilkan semua
-                         notifikasi</a>
-                 </div>
-             </li>
-         @endif --}}
+                         </button>
+                     </form>
+                 @endforeach
+
+                 <a class="dropdown-item text-center small text-gray-500" href="{{ route('notifikasi') }}">Lihat semua
+                     notifikasi</a>
+             </div>
+         </li>
+
 
 
          <div class="topbar-divider d-none d-sm-block"></div>

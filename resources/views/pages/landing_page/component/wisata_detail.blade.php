@@ -171,7 +171,7 @@
                       @endguest
                       <hr class="my-3">
                       <div class="py-3 px-2 " style="background-color: #f8f8f8; border-radius:5px;">
-                          @forelse (App\Models\reviewRating::where('identity',$wisata->id)->where('type','wisata')->get() as $rating)
+                          @forelse (App\Models\reviewRating::where('identity',$wisata->id)->where('type','wisata')->latest()->get() as $rating)
                               <strong style="color: #f25601">{{ $rating->user->name }} : </strong>
                               <br><small style="font-size:10px;">{{ $rating->created_at->diffFOrHumans() }}</small>
                               <div class="form-group my-2">

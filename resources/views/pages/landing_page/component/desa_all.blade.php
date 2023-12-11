@@ -7,7 +7,7 @@
           <div class="section-line"></div>
       </div>
       <div class=" slides my-4">
-          <div class="section-discover-body container">
+          <div class=" container">
               <div class="row justify-content-center align-items-center">
                   @foreach ($desa as $item)
                       <div class="col-lg-4 mb-3">

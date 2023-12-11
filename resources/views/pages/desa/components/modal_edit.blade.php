@@ -64,37 +64,27 @@
                                 $desa = App\Models\DesaDetail::where('id_desa', $item->id)->first();
                             @endphp
                             @if ($desa)
-                                @foreach (json_decode($desa->data) as $detail)
-                                    <div class="form-group d-flex my-2">
+                                @foreach (json_decode($desa->data) as $index => $detail)
+                                    <div class="form-group d-flex my-2" id="form-container-{{ $index }}">
                                         <input type="text" name="title[]" value="{{ $detail->title }}"
                                             placeholder="Judul" class="form-control mx-2" style="width: 200px;">
                                         <textarea name="description[]" placeholder="Isi" class="form-control mx-2" rows="1">{{ $detail->description }}</textarea>
-                                        <button type="button" class="btn btn-danger remove-button"><i
-                                                class="fa fa-trash"></i></button>
+                                        <button type="button" class="btn btn-danger remove-button"
+                                            data-index="{{ $index }}">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
                                     </div>
                                 @endforeach
-                                <div class="form-group my-2" id="form-container-{{ $item->id }}">
-                                    <div class="d-flex">
-                                        <input type="text" name="title[]" placeholder="Judul"
-                                            class="form-control mx-2" style="width: 200px;">
-                                        <textarea name="description[]" placeholder="Isi" class="form-control mx-2" rows="1"></textarea>
-                                        <button type="button"
-                                            class="btn btn-primary add-button-{{ $item->id }}"><i
-                                                class="fa fa-plus"></i></button>
-                                    </div>
-                                </div>
-                            @else
-                                <div class="form-group my-2" id="form-container-{{ $item->id }}">
-                                    <div class="d-flex">
-                                        <input type="text" name="title[]" placeholder="Judul"
-                                            class="form-control mx-2" style="width: 200px;">
-                                        <textarea name="description[]" placeholder="Isi" class="form-control mx-2" rows="1"></textarea>
-                                        <button type="button"
-                                            class="btn btn-primary add-button-{{ $item->id }}"><i
-                                                class="fa fa-plus"></i></button>
-                                    </div>
-                                </div>
                             @endif
+                            <div class="form-group my-2" id="form-container-{{ $item->id }}">
+                                <div class="d-flex">
+                                    <input type="text" name="title[]" placeholder="Judul" class="form-control mx-2"
+                                        style="width: 200px;">
+                                    <textarea name="description[]" placeholder="Isi" class="form-control mx-2" rows="1"></textarea>
+                                    <button type="button" class="btn btn-primary add-button"
+                                        data-id="{{ $item->id }}"><i class="fa fa-plus"></i></button>
+                                </div>
+                            </div>
 
                         </div>
                     </div>
@@ -109,22 +99,38 @@
 @push('js')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            @foreach (json_decode($desa->data) as $index => $detail)
+                const formContainer{{ $index }} = document.getElementById(
+                    'form-container-{{ $index }}');
+                const removeButton{{ $index }} = formContainer{{ $index }}.querySelector(
+                    '.remove-button');
+                removeButton{{ $index }}.addEventListener('click', () => removeForm(
+                    formContainer{{ $index }}));
+            @endforeach
+
+            function removeForm(formContainer) {
+                formContainer.remove();
+            }
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
             initMapEdit{{ $item->id }}();
 
             const formContainer = document.getElementById('form-container-{{ $item->id }}');
 
-            function addForm{{ $item->id }}() {
+            function addForm() {
                 const formGroup = document.createElement('div');
+                const itemId = "{{ $item->id }}";
                 formGroup.classList.add('form-group', 'd-flex', 'my-2');
                 formGroup.innerHTML = `
-                <input type="text" name="title[]" placeholder="Judul" class="form-control mx-2" style="width: 200px;">
-               
-                <textarea name="description[]" placeholder="Isi" class="form-control mx-2" rows="1"></textarea>
-                <button type="button" class="btn btn-danger remove-button-{{ $item->id }}"><i class="fa fa-trash"></i></button>
-            `;
+                    <input type="text" name="title[]" placeholder="Judul" class="form-control mx-2" style="width: 200px;">
+                    <textarea name="description[]" placeholder="Isi" class="form-control mx-2" rows="1"></textarea>
+                    <button type="button" class="btn btn-danger remove-button" data-id="${itemId}"><i class="fa fa-trash"></i></button>
+                `;
                 formContainer.appendChild(formGroup);
 
-                const removeButton = formGroup.querySelector('.remove-button-{{ $item->id }}');
+                const removeButton = formGroup.querySelector('.remove-button');
                 removeButton.addEventListener('click', () => removeForm(formGroup));
             }
 
@@ -132,10 +138,8 @@
                 formGroup.remove();
             }
 
-            const addButtons = document.querySelectorAll('.add-button-{{ $item->id }}');
-            addButtons.forEach(button => {
-                button.addEventListener('click', addForm{{ $item->id }});
-            });
+            const addButton = document.querySelector('.add-button');
+            addButton.addEventListener('click', addForm);
         });
     </script>
     <script>

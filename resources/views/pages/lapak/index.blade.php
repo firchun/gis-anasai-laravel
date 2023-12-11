@@ -112,9 +112,7 @@
             </div>
         </div>
     </div>
-    @foreach ($lapak as $item)
-        @include('pages.lapak.components.modal_ulasan')
-    @endforeach
+    @include('pages.lapak.components.modal_ulasan')
     @include('pages.lapak.components.modal_create')
 @endsection
 @push('js')

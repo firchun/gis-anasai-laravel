@@ -6,7 +6,7 @@
           <h3 class="section-title">Desa di Kawasan Sinai</h3>
           <p class="section-subtitle">Adalah desa-desa yang berapa pada kawasan sinai - Papua Selatan </p>
       </div>
-      <div class="section-discover-body container">
+      <div class=" container">
           <div class="row justify-content-center align-items-center">
               @foreach ($desa->take(3) as $item)
                   <div class="col-lg-4">

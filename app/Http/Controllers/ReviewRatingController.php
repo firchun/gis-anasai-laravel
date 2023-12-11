@@ -62,7 +62,6 @@ class ReviewRatingController extends Controller
             }
 
 
-
             if ($rating->save()) {
                 return redirect()->back()->with('success', 'Berhasil klaim');
             } else {

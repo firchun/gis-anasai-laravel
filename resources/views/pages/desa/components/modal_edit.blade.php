@@ -99,14 +99,16 @@
 @push('js')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            @foreach (json_decode($desa->data) as $index => $detail)
-                const formContainer{{ $index }} = document.getElementById(
-                    'form-container-{{ $index }}');
-                const removeButton{{ $index }} = formContainer{{ $index }}.querySelector(
-                    '.remove-button');
-                removeButton{{ $index }}.addEventListener('click', () => removeForm(
-                    formContainer{{ $index }}));
-            @endforeach
+            @if ($desa && $desa->data)
+                @foreach (json_decode($desa->data) as $index => $detail)
+                    const formContainer{{ $index }} = document.getElementById(
+                        'form-container-{{ $index }}');
+                    const removeButton{{ $index }} = formContainer{{ $index }}.querySelector(
+                        '.remove-button');
+                    removeButton{{ $index }}.addEventListener('click', () => removeForm(
+                        formContainer{{ $index }}));
+                @endforeach
+            @endif
 
             function removeForm(formContainer) {
                 formContainer.remove();

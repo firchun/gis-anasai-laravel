@@ -14,7 +14,8 @@
                           <div class="card text-white">
                               <div class="position-relative">
                                   <img src="{{ $item->foto ? Storage::url($item->foto) : asset('img/no-image.jpg') }}"
-                                      class="card-img" alt="..." loading="lazy">
+                                      class="card-img" alt="..." loading="lazy"
+                                      style="height:400px; object-fit:cover;">
                                   <div class="gradient-overlay">
                                   </div>
                                   <div class="card-img-overlay d-flex flex-column justify-content-end text-center ">

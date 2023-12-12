@@ -65,15 +65,17 @@
                             @endphp
                             @if ($desa)
                                 @foreach (json_decode($desa->data) as $index => $detail)
-                                    <div class="form-group d-flex my-2" id="form-container-{{ $index }}">
-                                        <input type="text" name="title[]" value="{{ $detail->title }}"
-                                            placeholder="Judul" class="form-control mx-2" style="width: 200px;">
-                                        <textarea name="description[]" placeholder="Isi" class="form-control mx-2" rows="1">{{ $detail->description }}</textarea>
-                                        <button type="button" class="btn btn-danger remove-button"
-                                            data-index="{{ $index }}">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-                                    </div>
+                                    @if ($detail->title != null && $detail->description != null)
+                                        <div class="form-group d-flex my-2" id="form-container-{{ $index }}">
+                                            <input type="text" name="title[]" value="{{ $detail->title }}"
+                                                placeholder="Judul" class="form-control mx-2" style="width: 200px;">
+                                            <textarea name="description[]" placeholder="Isi" class="form-control mx-2" rows="1">{{ $detail->description }}</textarea>
+                                            <button type="button" class="btn btn-danger remove-button"
+                                                data-index="{{ $index }}">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    @endif
                                 @endforeach
                             @endif
                             <div class="form-group my-2" id="form-container-{{ $item->id }}">
@@ -97,9 +99,9 @@
     </div>
 </div>
 @push('js')
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            @if ($desa && $desa->data)
+    @if ($desa && $desa->data)
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
                 @foreach (json_decode($desa->data) as $index => $detail)
                     const formContainer{{ $index }} = document.getElementById(
                         'form-container-{{ $index }}');
@@ -108,13 +110,13 @@
                     removeButton{{ $index }}.addEventListener('click', () => removeForm(
                         formContainer{{ $index }}));
                 @endforeach
-            @endif
 
-            function removeForm(formContainer) {
-                formContainer.remove();
-            }
-        });
-    </script>
+                function removeForm(formContainer) {
+                    formContainer.remove();
+                }
+            });
+        </script>
+    @endif
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             initMapEdit{{ $item->id }}();

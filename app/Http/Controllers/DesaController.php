@@ -121,7 +121,7 @@ class DesaController extends Controller
             if ($desa->save()) {
 
                 // hapus data sebelumnya
-                $detail = DesaDetail::where('id_desa', $desa->id)->delete();
+                DesaDetail::where('id_desa', $desa->id)->delete();
                 // Buat dan simpan data JSON pada model DesaDetail
                 $desaDetail = new DesaDetail();
                 $desaDetail->id_desa = $desa->id; // Pastikan model DesaDetail memiliki relasi ke model Desa
@@ -129,15 +129,14 @@ class DesaController extends Controller
 
                 foreach ($request->title as $key => $title) {
                     // Buat data JSON dari request
-                    $itemData = [
-                        'title' => $title, // Menggunakan $title dari form
-                        'description' => $request->description[$key], // Menggunakan description sesuai dengan indeksnya
-                    ];
-
-                    // Tambahkan itemData ke array jsonData
-                    $jsonData[] = $itemData;
+                    if ($title !== null && trim($title) !== '') {
+                        $itemData = [
+                            'title' => $title,
+                            'description' => $request->description[$key] ?? null, // Use null if description is not set
+                        ];
+                        $jsonData[] = $itemData;
+                    }
                 }
-
                 // Setelah iterasi selesai, ubah $jsonData menjadi JSON dan simpan
                 $desaDetail->data = json_encode($jsonData);
                 $desaDetail->save();
@@ -150,7 +149,6 @@ class DesaController extends Controller
             return redirect()->back()->with('danger', 'Terjadi kesalahan : ' . $e->getMessage());
         }
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -159,7 +157,6 @@ class DesaController extends Controller
      */
     public function destroy($id)
     {
-
         try {
             $desa = Desa::findOrFail($id);
             if ($desa->foto != '') {

@@ -82,10 +82,12 @@
                                 <td colspan="2" class="text-center "><strong>B. DATA UMUM DESA</strong></td>
                             </tr>
                             @foreach (json_decode(App\Models\DesaDetail::where('id_desa', $desa->id)->first()->data) as $detail)
-                                <tr>
-                                    <td style="width:300px;"><strong>{{ $detail->title }}</strong></td>
-                                    <td>{{ $detail->description }}</td>
-                                </tr>
+                                @if ($detail->title != null && $detail->description != null)
+                                    <tr>
+                                        <td style="width:300px;"><strong>{{ $detail->title }}</strong></td>
+                                        <td>{{ $detail->description }}</td>
+                                    </tr>
+                                @endif
                             @endforeach
                         </table>
                     @endif

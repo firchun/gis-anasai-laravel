@@ -151,6 +151,7 @@ class WisataController extends Controller
             $wisata->nama_wisata = $request->nama_wisata;
             $wisata->slug =  Str::slug($request->nama_wisata);
             $wisata->latitude = $request->latitude;
+            $wisata->harga = $request->harga;
             $wisata->longitude = $request->longitude;
             $wisata->keterangan = $request->keterangan;
 

@@ -66,7 +66,8 @@
                             @if ($desa)
                                 @foreach (json_decode($desa->data) as $index => $detail)
                                     @if ($detail->title != null && $detail->description != null)
-                                        <div class="form-group d-flex my-2" id="form-container-{{ $index }}">
+                                        <div class="form-group d-flex my-2"
+                                            id="form-container-{{ $item->id }}-{{ $index }}">
                                             <input type="text" name="title[]" value="{{ $detail->title }}"
                                                 placeholder="Judul" class="form-control mx-2" style="width: 200px;">
                                             <textarea name="description[]" placeholder="Isi" class="form-control mx-2" rows="1">{{ $detail->description }}</textarea>
@@ -78,12 +79,12 @@
                                     @endif
                                 @endforeach
                             @endif
-                            <div class="form-group my-2" id="form-container-{{ $item->id }}">
+                            <div class="form-group my-2" id="form-container-{{ $item->id }}-{{ $item->id }}">
                                 <div class="d-flex">
                                     <input type="text" name="title[]" placeholder="Judul" class="form-control mx-2"
                                         style="width: 200px;">
                                     <textarea name="description[]" placeholder="Isi" class="form-control mx-2" rows="1"></textarea>
-                                    <button type="button" class="btn btn-primary add-button"
+                                    <button type="button" class="btn btn-primary add-button-{{ $item->id }}"
                                         data-id="{{ $item->id }}"><i class="fa fa-plus"></i></button>
                                 </div>
                             </div>
@@ -104,7 +105,7 @@
             document.addEventListener('DOMContentLoaded', function() {
                 @foreach (json_decode($desa->data) as $index => $detail)
                     const formContainer{{ $index }} = document.getElementById(
-                        'form-container-{{ $index }}');
+                        'form-container-{{ $item->id }}-{{ $index }}');
                     const removeButton{{ $index }} = formContainer{{ $index }}.querySelector(
                         '.remove-button');
                     removeButton{{ $index }}.addEventListener('click', () => removeForm(
@@ -121,7 +122,8 @@
         document.addEventListener('DOMContentLoaded', function() {
             initMapEdit{{ $item->id }}();
 
-            const formContainer = document.getElementById('form-container-{{ $item->id }}');
+            const formContainer = document.getElementById(
+                'form-container-{{ $item->id }}-{{ $item->id }}');
 
             function addForm() {
                 const formGroup = document.createElement('div');
@@ -142,7 +144,7 @@
                 formGroup.remove();
             }
 
-            const addButton = document.querySelector('.add-button');
+            const addButton = document.querySelector('.add-button-{{ $item->id }}');
             addButton.addEventListener('click', addForm);
         });
     </script>

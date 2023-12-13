@@ -78,11 +78,23 @@
                                         </div>
                                     @endif
                                 @endforeach
+                            @else
+                                <div class="form-group my-2"
+                                    id="form-container-{{ $item->id }}-{{ $item->id }}">
+                                    <div class="d-flex">
+                                        <input type="text" name="title[]" placeholder="Judul"
+                                            class="form-control mx-2" style="width: 200px;">
+                                        <textarea name="description[]" placeholder="Isi" class="form-control mx-2" rows="1"></textarea>
+                                        <button type="button" class="btn btn-primary add-button-{{ $item->id }}"
+                                            data-id="{{ $item->id }}"><i class="fa fa-plus"></i></button>
+                                    </div>
+                                </div>
                             @endif
-                            <div class="form-group my-2" id="form-container-{{ $item->id }}-{{ $item->id }}">
+                            <div class="form-group my-2"
+                                id="form-container-{{ $item->id }}-{{ $item->id }}">
                                 <div class="d-flex">
-                                    <input type="text" name="title[]" placeholder="Judul" class="form-control mx-2"
-                                        style="width: 200px;">
+                                    <input type="text" name="title[]" placeholder="Judul"
+                                        class="form-control mx-2" style="width: 200px;">
                                     <textarea name="description[]" placeholder="Isi" class="form-control mx-2" rows="1"></textarea>
                                     <button type="button" class="btn btn-primary add-button-{{ $item->id }}"
                                         data-id="{{ $item->id }}"><i class="fa fa-plus"></i></button>

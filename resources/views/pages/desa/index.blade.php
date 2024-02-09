@@ -57,7 +57,7 @@
                                     <td style="width: 150px;" class="text-center"><img
                                             src="{{ $item->foto ? Storage::url($item->foto) : asset('img/no-image.jpg') }}"
                                             class="img-fluid rounded" style="height: 80px;" loading="lazy"></td>
-                                    <td><strong>Desa
+                                    <td><strong>Kampung
                                             {{ $item->nama_desa }}</strong><br>Terdapat
                                         {{ number_format($item->jumlah_jiwa) . ' Jiwa dengan ' . number_format($item->jumlah_kk) . ' Kepala Keluarga' }}
                                     </td>

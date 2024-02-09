@@ -16,7 +16,7 @@
                   <li><a href="{{ url('/shop') }}" style="@if (request()->is('shop')) color: yellow; @endif"
                           class="text-decoration-none">Lapak</a></li>
                   <li><a href="{{ url('/village') }}" style="@if (request()->is('village')) color: yellow; @endif"
-                          class="text-decoration-none">Desa</a></li>
+                          class="text-decoration-none">Kampung</a></li>
                   <li><a href="{{ url('/event') }}" style="@if (request()->is('event')) color: yellow; @endif"
                           class="text-decoration-none">Event</a></li>
                   @guest

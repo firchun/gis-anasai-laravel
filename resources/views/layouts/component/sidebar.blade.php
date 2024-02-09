@@ -33,7 +33,7 @@
         <li class="nav-item {{ Nav::isRoute('desa') }}">
             <a class="nav-link" href="{{ url('/desa') }}">
                 <i class="fas fa-folder"></i>
-                <span>{{ __('Desa') }}</span>
+                <span>{{ __('Kampung') }}</span>
             </a>
         </li>
         <!-- Nav Item - wisata -->
@@ -95,7 +95,7 @@
         <li class="nav-item {{ Nav::isRoute('laporan.desa') }}">
             <a class="nav-link" href="{{ url('/laporan/desa') }}">
                 <i class="fas fa-folder"></i>
-                <span>{{ __('Laporan Desa') }}</span>
+                <span>{{ __('Laporan Kampung') }}</span>
             </a>
         </li>
         <!-- Nav Item - wisata -->

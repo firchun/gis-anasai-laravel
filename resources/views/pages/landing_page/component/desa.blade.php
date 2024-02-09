@@ -3,8 +3,8 @@
   <section class="section my-4 mx-auto" id="discover" style="background:#f5f7fc;">
       <div class="section-head">
           <div class="section-line"></div>
-          <h3 class="section-title">Desa di Kawasan Sinai</h3>
-          <p class="section-subtitle">Adalah desa-desa yang berapa pada kawasan sinai - Papua Selatan </p>
+          <h3 class="section-title">Kampung di Kawasan Sinai</h3>
+          <p class="section-subtitle">Adalah kampung-kampung yang berapa pada kawasan sinai - Papua Selatan </p>
       </div>
       <div class=" container">
           <div class="row justify-content-center align-items-center">
@@ -19,7 +19,7 @@
                                   <div class="gradient-overlay">
                                   </div>
                                   <div class="card-img-overlay d-flex flex-column justify-content-end text-center ">
-                                      <h5 class="card-title mb-0 font-weight-bold">Desa {{ $item->nama_desa }}</h5>
+                                      <h5 class="card-title mb-0 font-weight-bold">Kampung {{ $item->nama_desa }}</h5>
                                       <div class="section-line"></div>
                                       <p class="card-text">
                                           {{ Str::limit($item->keterangan, 30) ?? 'Keterangan tidak tersedia' }}

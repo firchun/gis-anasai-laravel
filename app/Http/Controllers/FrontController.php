@@ -28,7 +28,7 @@ class FrontController extends Controller
     public function desa()
     {
         $data = [
-            'title' => 'Desa Pada Sinai',
+            'title' => 'Kampung Pada Sinai',
             'desa' => Desa::latest()->paginate(20),
         ];
         return view('pages.landing_page.desa', $data);
@@ -37,7 +37,7 @@ class FrontController extends Controller
     {
         $desa = Desa::where('slug', $slug)->firstOrFail();
         $data = [
-            'title' => 'Desa : ' . $desa->nama_desa,
+            'title' => 'Kampung : ' . $desa->nama_desa,
             'desa' => $desa,
         ];
         return view('pages.landing_page.desa_detail', $data);

@@ -2,8 +2,8 @@
 
   <section class="section" id="discover">
       <div class="section-head">
-          <h3 class="section-title">Desa di Kawasan Sinai</h3>
-          <p class="section-subtitle">Adalah desa-desa yang berapa pada kawasan sinai - Papua Selatan </p>
+          <h3 class="section-title">Kampung di Kawasan Sinai</h3>
+          <p class="section-subtitle">Adalah kampung-kampung yang berapa pada kawasan sinai - Papua Selatan </p>
           <div class="section-line"></div>
       </div>
       <div class=" slides my-4">
@@ -18,7 +18,8 @@
                                           class="card-img" alt="..." loading="lazy"
                                           style="height:400px; object-fit:cover;">
                                       <div class="card-img-overlay d-flex flex-column justify-content-end text-center">
-                                          <h5 class="card-title mb-0 font-weight-bold">Desa {{ $item->nama_desa }}</h5>
+                                          <h5 class="card-title mb-0 font-weight-bold">Kampung {{ $item->nama_desa }}
+                                          </h5>
                                           {{-- <p class="card-text">
                                           <mark>{{ $item->keterangan ?? 'Keterangan tidak tersedia' }}</mark>
                                       </p> --}}

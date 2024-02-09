@@ -29,7 +29,7 @@
             <div class="my-2">
                 <a href="#" data-toggle="modal" data-target="#create" class="btn btn-primary"><i
                         class="fa fa-plus"></i>
-                    Tambah Desa
+                    Tambah Kampung
                 </a>
             </div>
 
@@ -45,8 +45,8 @@
                             <tr>
                                 <th>#</th>
                                 <th>Foto</th>
-                                <th>Nama Desa</th>
-                                <th>keterangan Desa</th>
+                                <th>Nama Kampung</th>
+                                <th>keterangan Kampung</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>

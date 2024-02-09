@@ -46,21 +46,21 @@
     <div class="mx-5 mt-4">
         <div class="row">
             <div class="col-lg-4 mb-4">
-                <h5 class="text-left font-weight-bold underline-half mb-4">Detail Desa :</h5>
+                <h5 class="text-left font-weight-bold underline-half mb-4">Detail Kampung :</h5>
                 <div id="map" style="height: 300px; width:100%;"></div>
                 <a href="https://maps.google.com/?saddr=My+Location&daddr={{ $desa->latitude }},{{ $desa->longitude }}"
                     target="_blank" class="btn btn-orange btn-round "
-                    style="margin-top:20px; margin-bottom:10px; padding:5px 10px;">Rute menuju desa</a>
+                    style="margin-top:20px; margin-bottom:10px; padding:5px 10px;">Rute menuju kampung</a>
             </div>
             <div class="col-lg-8" style="min-height: 300px;">
-                <h5 class="text-left font-weight-bold underline-half mb-4">Monografi Desa :</h5>
+                <h5 class="text-left font-weight-bold underline-half mb-4">Monografi Kampung :</h5>
                 <div class="row">
                     <table class="table table-bordered mb-3" style="width: 100%; border:1px;">
                         <tr class="bg-warning">
-                            <td colspan="2" class="text-center "><strong>A. DATA STATIS DESA</strong></td>
+                            <td colspan="2" class="text-center "><strong>A. DATA STATIS KAMPUNG</strong></td>
                         </tr>
                         <tr>
-                            <td style="width:300px;"> <strong>Nama Desa</strong></td>
+                            <td style="width:300px;"> <strong>Nama Kampung</strong></td>
                             <td> {{ $desa->nama_desa }} </td>
                         </tr>
                         <tr>
@@ -79,7 +79,7 @@
                     @if (App\Models\DesaDetail::where('id_desa', $desa->id)->first() != null)
                         <table class="table table-bordered" style="width: 100%; border:1px;">
                             <tr class="bg-warning">
-                                <td colspan="2" class="text-center "><strong>B. DATA UMUM DESA</strong></td>
+                                <td colspan="2" class="text-center "><strong>B. DATA UMUM KAMPUNG</strong></td>
                             </tr>
                             @foreach (json_decode(App\Models\DesaDetail::where('id_desa', $desa->id)->first()->data) as $detail)
                                 @if ($detail->title != null && $detail->description != null)

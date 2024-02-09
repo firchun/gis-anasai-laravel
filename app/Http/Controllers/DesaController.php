@@ -14,7 +14,7 @@ class DesaController extends Controller
     public function index()
     {
         $data = [
-            'title' => 'Master Data Desa',
+            'title' => 'Master Data Kampung',
             'desa' => Desa::all(),
         ];
         return view('pages.desa.index', $data);
@@ -70,9 +70,9 @@ class DesaController extends Controller
 
 
 
-                return redirect()->back()->with('success', 'Berhasil menambahkan desa');
+                return redirect()->back()->with('success', 'Berhasil menambahkan kampung');
             } else {
-                return redirect()->back()->with('danger', 'Gagal menambahkan desa');
+                return redirect()->back()->with('danger', 'Gagal menambahkan kampung');
             }
         } catch (\Exception $e) {
             return redirect()->back()->with('danger', 'Terjadi kesalahan : ' . $e->getMessage());
@@ -141,9 +141,9 @@ class DesaController extends Controller
                 $desaDetail->data = json_encode($jsonData);
                 $desaDetail->save();
 
-                return redirect()->back()->with('success', 'Berhasil mengubah data desa');
+                return redirect()->back()->with('success', 'Berhasil mengubah data kampung');
             } else {
-                return redirect()->back()->with('danger', 'Gagal mengubah data desa');
+                return redirect()->back()->with('danger', 'Gagal mengubah data kampung');
             }
         } catch (\Exception $e) {
             return redirect()->back()->with('danger', 'Terjadi kesalahan : ' . $e->getMessage());
@@ -165,11 +165,11 @@ class DesaController extends Controller
             $desa_detail = DesaDetail::where('id_desa', $desa->id);
             $desa_detail->delete();
             $desa->delete();
-            return back()->with(['success' => 'Berhasil menghapus data']);
+            return back()->with(['success' => 'Berhasil menghapus kampung']);
         } catch (QueryException $e) {
-            return back()->with(['danger' => 'Tidak dapat menghapus data karena ada keterkaitan data lain.']);
+            return back()->with(['danger' => 'Tidak dapat menghapus kampung karena ada keterkaitan data lain.']);
         } catch (\Exception $e) {
-            return back()->with(['danger' => 'Terjadi kesalahan saat menghapus data, ', $e->getMessage()]);
+            return back()->with(['danger' => 'Terjadi kesalahan saat menghapus kampung, ', $e->getMessage()]);
         }
     }
 }

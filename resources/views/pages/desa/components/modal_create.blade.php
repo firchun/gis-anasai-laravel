@@ -13,18 +13,18 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="my-2">
-                                <h4>Informasi Desa</h4>
+                                <h4>Informasi Kampung</h4>
                                 <hr>
                             </div>
                             <div class="form-group ">
-                                <label class="form-control-label" for="foto">Foto Desa<span
+                                <label class="form-control-label" for="foto">Foto Kampung<span
                                         class="small text-danger">*</span></label>
                                 <input type="file" class="form-control" name="foto">
                             </div>
                             <div class="form-group ">
-                                <label class="form-control-label" for="nama_desa">Nama Desa<span
+                                <label class="form-control-label" for="nama_desa">Nama Kampung<span
                                         class="small text-danger">*</span></label>
-                                <input type="text" class="form-control" name="nama_desa" placeholder="Nama Desa">
+                                <input type="text" class="form-control" name="nama_desa" placeholder="Nama Kampung">
                             </div>
                             <div class="row">
                                 <div class="col-6">
@@ -54,7 +54,7 @@
                         </div>
                         <div class="col-md-8">
                             <div class="my-2">
-                                <h4>Monografi Desa</h4>
+                                <h4>Monografi Kampung</h4>
                                 <hr>
                             </div>
                             <div class="form-group my-2" id="form-container">

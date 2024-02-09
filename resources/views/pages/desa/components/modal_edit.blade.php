@@ -16,12 +16,12 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group ">
-                                <label class="form-control-label" for="foto">Foto Desa<span
+                                <label class="form-control-label" for="foto">Foto Kampung<span
                                         class="small text-danger">*</span></label>
                                 <input type="file" class="form-control" name="foto">
                             </div>
                             <div class="form-group ">
-                                <label class="form-control-label" for="nama_desa">Nama Desa<span
+                                <label class="form-control-label" for="nama_desa">Nama Kampung<span
                                         class="small text-danger">*</span></label>
                                 <input type="text" class="form-control" name="nama_desa" placeholder="Nama Desa"
                                     value="{{ $item->nama_desa }}">
@@ -57,7 +57,7 @@
                         </div>
                         <div class="col-md-8">
                             <div class="my-2">
-                                <h4>Monografi Desa</h4>
+                                <h4>Monografi Kampung</h4>
                                 <hr>
                             </div>
                             @php
@@ -100,7 +100,6 @@
                                         data-id="{{ $item->id }}"><i class="fa fa-plus"></i></button>
                                 </div>
                             </div>
-
                         </div>
                     </div>
 
@@ -137,19 +136,36 @@
             const formContainer = document.getElementById(
                 'form-container-{{ $item->id }}-{{ $item->id }}');
 
+            // function addForm() {
+            //     const formGroup = document.createElement('div');
+            //     const itemId = "{{ $item->id }}";
+            //     formGroup.classList.add('form-group', 'd-flex', 'my-2');
+            //     formGroup.innerHTML = `
+        //         <input type="text" name="title[]" placeholder="Judul" class="form-control mx-2" style="width: 200px;">
+        //         <textarea name="description[]" placeholder="Isi" class="form-control mx-2" rows="1"></textarea>
+        //         <button type="button" class="btn btn-danger remove-button" data-id="${itemId}"><i class="fa fa-trash"></i></button>
+        //     `;
+            //     formContainer.appendChild(formGroup);
+
+            //     const removeButton = formGroup.querySelector('.remove-button');
+            //     removeButton.addEventListener('click', () => removeForm(formGroup));
+            // }
             function addForm() {
                 const formGroup = document.createElement('div');
                 const itemId = "{{ $item->id }}";
                 formGroup.classList.add('form-group', 'd-flex', 'my-2');
                 formGroup.innerHTML = `
-                    <input type="text" name="title[]" placeholder="Judul" class="form-control mx-2" style="width: 200px;">
-                    <textarea name="description[]" placeholder="Isi" class="form-control mx-2" rows="1"></textarea>
-                    <button type="button" class="btn btn-danger remove-button" data-id="${itemId}"><i class="fa fa-trash"></i></button>
-                `;
+                        <input type="text" name="title[]" placeholder="Judul" class="form-control mx-2" style="width: 200px;">
+                        <textarea name="description[]" placeholder="Isi" class="form-control mx-2" rows="1"></textarea>
+                        <button type="button" class="btn btn-danger remove-button" data-id="${itemId}"><i class="fa fa-trash"></i></button>
+                    `;
                 formContainer.appendChild(formGroup);
 
                 const removeButton = formGroup.querySelector('.remove-button');
                 removeButton.addEventListener('click', () => removeForm(formGroup));
+
+                const formContainer = document.getElementById('form-container-{{ $item->id }}');
+                formContainer.appendChild(document.createElement('div'));
             }
 
             function removeForm(formGroup) {

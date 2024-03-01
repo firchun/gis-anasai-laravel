@@ -56,7 +56,7 @@ Route::middleware(['auth:web'])->group(function () {
     Route::get('/chat/user/{user}', [App\Http\Controllers\ChatController::class, 'chat'])->name('chat');
     Route::get('/chat/room/{room}', [App\Http\Controllers\ChatController::class, 'room'])->name('chat.room');
     Route::get('/chat/get/{room}', [App\Http\Controllers\ChatController::class, 'getChat'])->name('chat.get');
-Route::post('/chat/send', [App\Http\Controllers\ChatController::class, 'sendChat'])->name('chat.send');
+    Route::post('/chat/send', [App\Http\Controllers\ChatController::class, 'sendChat'])->name('chat.send');
 });
 Route::middleware(['auth:web', 'role:admin,seller'])->group(function () {
     //route dashboard
@@ -107,6 +107,7 @@ Route::middleware(['auth:web', 'role:admin'])->group(function () {
     Route::put('/wisata/update/{id}', [WisataController::class, 'update'])->name('wisata.update');
     Route::get('/wisata/images/{id}', [WisataController::class, 'images'])->name('wisata.images');
     Route::delete('/wisata/destroy/{id}', [WisataController::class, 'destroy'])->name('wisata.destroy');
+    Route::delete('/wisata/destroy_images/{id}', [WisataController::class, 'destroy_images'])->name('wisata.destroy_images');
 
     //route laporan
     Route::get('/laporan/wisata', [LaporanController::class, 'wisata'])->name('laporan.wisata');

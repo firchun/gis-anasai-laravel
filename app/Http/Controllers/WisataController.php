@@ -179,7 +179,29 @@ class WisataController extends Controller
             if ($wisata->foto != '') {
                 Storage::delete($wisata->foto);
             }
+            $images = WisataFoto::where('id_wisata', $id);
+            if ($images) {
+                if ($images->foto != '') {
+                    Storage::delete($images->foto);
+                }
+                $images->delete();
+            }
             $wisata->delete();
+            return back()->with(['success' => 'Berhasil menghapus data']);
+        } catch (QueryException $e) {
+            return back()->with(['danger' => 'Tidak dapat menghapus data karena ada keterkaitan data lain.']);
+        } catch (\Exception $e) {
+            return back()->with(['danger' => 'Terjadi kesalahan saat menghapus data.']);
+        }
+    }
+    public function destroy_images($id)
+    {
+        try {
+            $images = WisataFoto::findOrFail($id);
+            if ($images->foto != '') {
+                Storage::delete($images->foto);
+            }
+            $images->delete();
             return back()->with(['success' => 'Berhasil menghapus data']);
         } catch (QueryException $e) {
             return back()->with(['danger' => 'Tidak dapat menghapus data karena ada keterkaitan data lain.']);

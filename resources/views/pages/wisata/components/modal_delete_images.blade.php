@@ -13,7 +13,7 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-link" type="button" data-dismiss="modal">{{ __('Cancel') }}</button>
-                <form method="POST" action="{{ route('wisata.destroy', $item->id) }}" class="d-inline-block">
+                <form method="POST" action="{{ route('wisata.destroy_images', $item->id) }}" class="d-inline-block">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger"> Delete

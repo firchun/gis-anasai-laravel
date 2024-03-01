@@ -210,7 +210,7 @@ class LapakController extends Controller
             if ($lapak->foto != '') {
                 Storage::delete($lapak->foto);
             }
-            $produk = ProdukLapak::where('id_lapak');
+            $produk = ProdukLapak::where('id_lapak', $id);
             if ($produk) {
                 $produk->delete();
             }
@@ -230,7 +230,7 @@ class LapakController extends Controller
             if ($produk->foto != '') {
                 Storage::delete($produk->foto);
             }
-            $check_stok = ProdukStok::where('id_produk_lapak');
+            $check_stok = ProdukStok::where('id_produk_lapak', $id);
             if ($check_stok) {
                 $check_stok->delete();
             }

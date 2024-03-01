@@ -210,6 +210,10 @@ class LapakController extends Controller
             if ($lapak->foto != '') {
                 Storage::delete($lapak->foto);
             }
+            $produk = ProdukLapak::where('id_lapak');
+            if ($produk) {
+                $produk->delete();
+            }
             $lapak->delete();
             return back()->with(['success' => 'Berhasil menghapus data']);
         } catch (QueryException $e) {
@@ -225,6 +229,10 @@ class LapakController extends Controller
             $produk = ProdukLapak::findOrFail($id);
             if ($produk->foto != '') {
                 Storage::delete($produk->foto);
+            }
+            $check_stok = ProdukStok::where('id_produk_lapak');
+            if ($check_stok) {
+                $check_stok->delete();
             }
             $produk->delete();
             return back()->with(['success' => 'Berhasil menghapus data']);

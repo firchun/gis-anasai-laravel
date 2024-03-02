@@ -38,7 +38,7 @@ class LapakController extends Controller
                 'id_user' => ['required'],
                 'latitude' => ['required'],
                 'longitude' => ['required'],
-                'foto' => ['nullable', 'mimes:jpeg,png,jpg,gif'],
+                'foto' => ['nullable', 'mimes:jpeg,png,jpg,gif,webp'],
             ]);
             $lapak = new Lapak();
             if ($request->hasFile('foto')) {
@@ -68,7 +68,7 @@ class LapakController extends Controller
                 'nama_produk' => ['required'],
                 'id_lapak' => ['required'],
                 'harga' => ['required'],
-                'foto' => ['nullable', 'mimes:jpeg,png,jpg,gif'],
+                'foto' => ['nullable', 'mimes:jpeg,png,jpg,gif,webp'],
             ]);
             $produk = new ProdukLapak();
             if ($request->hasFile('foto')) {
@@ -136,7 +136,7 @@ class LapakController extends Controller
                 'nama_lapak' => ['required'],
                 'latitude' => ['required'],
                 'longitude' => ['required'],
-                'foto' => ['nullable', 'mimes:jpeg,png,jpg,gif'],
+                'foto' => ['nullable', 'mimes:jpeg,png,jpg,gif,webp'],
             ]);
             $lapak = Lapak::findOrFail($id);
             if ($request->hasFile('foto')) {
@@ -169,7 +169,7 @@ class LapakController extends Controller
             $request->validate([
                 'nama_produk' => ['required'],
                 'harga' => ['required'],
-                'foto' => ['nullable', 'mimes:jpeg,png,jpg,gif'],
+                'foto' => ['nullable', 'mimes:jpeg,png,jpg,gif,webp'],
             ]);
             $produk = ProdukLapak::findOrFail($id);
             if ($request->hasFile('foto')) {

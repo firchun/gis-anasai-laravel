@@ -27,7 +27,7 @@ class KegiatanController extends Controller
                 'tanggal_selesai' => ['required'],
                 'latitude' => ['required'],
                 'longitude' => ['required'],
-                'foto' => ['nullable', 'mimes:jpeg,png,jpg,gif'],
+                'foto' => ['nullable', 'mimes:jpeg,png,jpg,gif,webp'],
             ]);
             $kegiatan = new Kegiatan();
             if ($request->hasFile('foto')) {
@@ -70,7 +70,7 @@ class KegiatanController extends Controller
                 'tanggal_selesai' => ['required'],
                 'latitude' => ['required'],
                 'longitude' => ['required'],
-                'foto' => ['nullable', 'mimes:jpeg,png,jpg,gif'],
+                'foto' => ['nullable', 'mimes:jpeg,png,jpg,gif,webp'],
             ]);
             $kegiatan = Kegiatan::findOrFail($id);
             if ($request->hasFile('foto')) {

@@ -28,7 +28,7 @@ class DesaController extends Controller
                 'jumlah_jiwa' => ['required'],
                 'latitude' => ['required'],
                 'longitude' => ['required'],
-                'foto' => ['nullable', 'mimes:jpeg,png,jpg,gif'],
+                'foto' => ['nullable', 'mimes:jpeg,png,jpg,gif,webp'],
                 'titles.*' => ['required'],
                 'descriptions.*' => ['required'],
             ]);
@@ -96,7 +96,7 @@ class DesaController extends Controller
                 'jumlah_jiwa' => ['required'],
                 'latitude' => ['required'],
                 'longitude' => ['required'],
-                'foto' => ['nullable', 'mimes:jpeg,png,jpg,gif'],
+                'foto' => ['nullable', 'mimes:jpeg,png,jpg,gif,webp'],
                 'titles.*' => ['required'],
                 'descriptions.*' => ['required'],
             ]);

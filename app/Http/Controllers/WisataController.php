@@ -39,8 +39,8 @@ class WisataController extends Controller
             'harga' => ['required'],
             'latitude' => ['required'],
             'longitude' => ['required'],
-            'foto' => ['nullable', 'mimes:jpeg,png,jpg,gif'],
-            'foto_wisatas.*' => ['required', 'mimes:jpeg,png,jpg'],
+            'foto' => ['nullable', 'mimes:jpeg,png,jpg,gif,webp'],
+            'foto_wisatas.*' => ['required', 'mimes:jpeg,png,jpg,webp'],
             'titles.*' => ['required'],
             'descriptions.*' => ['required'],
         ]);
@@ -90,7 +90,7 @@ class WisataController extends Controller
     {
         try {
             $request->validate([
-                'foto_wisatas.*' => ['required', 'mimes:jpeg,png,jpg'],
+                'foto_wisatas.*' => ['required', 'mimes:jpeg,png,jpg,webp'],
                 'titles.*' => ['required'],
                 'id_wisatas.*' => ['required'],
                 'descriptions.*' => ['required'],
@@ -136,7 +136,7 @@ class WisataController extends Controller
                 'harga' => ['required'],
                 'latitude' => ['required'],
                 'longitude' => ['required'],
-                'foto' => ['nullable', 'mimes:jpeg,png,jpg,gif'],
+                'foto' => ['nullable', 'mimes:jpeg,png,jpg,gif,webp'],
             ]);
             $wisata = Wisata::findOrFail($id);
             if ($request->hasFile('foto')) {

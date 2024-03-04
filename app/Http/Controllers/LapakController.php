@@ -204,22 +204,24 @@ class LapakController extends Controller
      */
     public function destroy($id)
     {
-
         try {
             $lapak = Lapak::findOrFail($id);
-            $produk = ProdukLapak::where('id_lapak', $id);
-            if ($produk) {
-                $stok = ProdukStok::where('id_produk_lapak', $produk->id);
-                if ($stok) {
-                    $stok->delete();
+            $produk = ProdukLapak::where('id_lapak', $id)->get();
+            foreach ($produk as $item) {
+                if ($item->foto != '') {
+                    Storage::delete($item->foto);
                 }
-                $produk->delete();
+                ProdukStok::where('id_produk_lapak', $item->id)->delete();
+                $item->delete();
             }
             if ($lapak->foto != '') {
                 Storage::delete($lapak->foto);
             }
-            $lapak->delete();
-            return back()->with(['success' => 'Berhasil menghapus data']);
+            if ($lapak->delete()) {
+                return back()->with(['success' => 'Berhasil menghapus data']);
+            } else {
+                return back()->with(['danger' => 'gagal menghapus data']);
+            }
         } catch (QueryException $e) {
             return back()->with(['danger' => 'Tidak dapat menghapus data karena ada keterkaitan data lain.']);
         } catch (\Exception $e) {

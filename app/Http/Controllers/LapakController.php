@@ -207,12 +207,16 @@ class LapakController extends Controller
 
         try {
             $lapak = Lapak::findOrFail($id);
-            if ($lapak->foto != '') {
-                Storage::delete($lapak->foto);
-            }
             $produk = ProdukLapak::where('id_lapak', $id);
             if ($produk) {
+                $stok = ProdukStok::where('id_produk_lapak', $produk->id);
+                if ($stok) {
+                    $stok->delete();
+                }
                 $produk->delete();
+            }
+            if ($lapak->foto != '') {
+                Storage::delete($lapak->foto);
             }
             $lapak->delete();
             return back()->with(['success' => 'Berhasil menghapus data']);

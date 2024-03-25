@@ -122,4 +122,9 @@ class ChatController extends Controller
 
         return redirect()->route('chat.room', ['room' => $uuid]);
     }
+    public function readChat($id)
+    {
+        Chat::find($id)->update(['is_read' => 1]);
+        return redirect()->route('lapak.chat');
+    }
 }

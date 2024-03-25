@@ -49,6 +49,7 @@ Route::post('/review/store', [ReviewRatingController::class, 'store'])->name('re
 Auth::routes(['verify' => true]);
 Route::middleware(['auth:web'])->group(function () {
     // Notifikasi
+    Route::put('/readChat/{id}', [ChatController::class, 'readChat'])->name('read_chat');
     Route::put('/read_notif/{id}', [NotifikasiController::class, 'read'])->name('read_notif');
     Route::put('/read_all/{id}', [NotifikasiController::class, 'read_all'])->name('read_all');
     Route::get('/notifikasi', [HomeController::class, 'notifikasi'])->name('notifikasi');

@@ -40,7 +40,7 @@
                                                     <i class="fa fa-user"></i>
                                                     {{ Str::limit($chat_user->user->name, 15) }}<br>
                                                     <small
-                                                        style="margin-left: 20px;">{{ $waktu ? $waktu->created_at->diffForhumans() : '?' }}</small>
+                                                        style="margin-left: 20px;">{{ $waktu ? $waktu->created_at->diffForhumans() : 'belum ada chat' }}</small>
                                                 </a>
                                             </li>
                                             {{-- {{ dd($waktu) }} --}}
